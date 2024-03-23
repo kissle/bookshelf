@@ -10,5 +10,5 @@ class BookShelf: PanacheEntity() {
     companion object : PanacheCompanion<BookShelf> {}
 
     @OneToMany
-    val books: MutableList<BookItem> = mutableListOf()
+    val books: MutableList<BookCopy> = mutableListOf()
 }
