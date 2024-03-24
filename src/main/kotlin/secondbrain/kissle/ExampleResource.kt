@@ -1,5 +1,6 @@
 package secondbrain.kissle
 
+import io.smallrye.mutiny.Uni
 import jakarta.ws.rs.GET
 import jakarta.ws.rs.Path
 import jakarta.ws.rs.Produces
@@ -10,5 +11,5 @@ class ExampleResource {
 
     @GET
     @Produces(MediaType.TEXT_PLAIN)
-    fun hello() = "Hello from RESTEasy Reactive"
+    fun hello(): Uni<String> = Uni.createFrom().item("Hello from RESTEasy Reactive")
 }

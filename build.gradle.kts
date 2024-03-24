@@ -14,20 +14,22 @@ val quarkusPlatformArtifactId: String by project
 val quarkusPlatformVersion: String by project
 
 dependencies {
-    implementation("io.quarkus:quarkus-reactive-pg-client")
+
     implementation(enforcedPlatform("${quarkusPlatformGroupId}:${quarkusPlatformArtifactId}:${quarkusPlatformVersion}"))
     implementation("io.quarkus:quarkus-resteasy-reactive-jackson")
-    implementation("io.quarkus:quarkus-minikube")
-    implementation("io.quarkus:quarkus-rest-client-reactive")
-    implementation("io.quarkus:quarkus-container-image-docker")
     implementation("io.quarkus:quarkus-resteasy-reactive")
-    implementation("io.quarkus:quarkus-smallrye-fault-tolerance")
-    implementation("io.quarkus:quarkus-smallrye-graphql")
-    implementation("io.quarkus:quarkus-smallrye-health")
-    implementation("io.quarkus:quarkus-rest-client-reactive-jackson")
-    implementation("io.quarkus:quarkus-jdbc-postgresql")
-    implementation("io.quarkus:quarkus-hibernate-validator")
-    implementation("io.quarkus:quarkus-smallrye-openapi")
+    implementation("io.quarkus:quarkus-reactive-pg-client")
+//    implementation("io.quarkus:quarkus-minikube")
+    //implementation("io.quarkus:quarkus-rest-client-reactive")
+    //implementation("io.quarkus:quarkus-container-image-docker")
+
+    //implementation("io.quarkus:quarkus-smallrye-fault-tolerance")
+    //implementation("io.quarkus:quarkus-smallrye-graphql")
+    //implementation("io.quarkus:quarkus-smallrye-health")
+    //implementation("io.quarkus:quarkus-rest-client-reactive-jackson")
+    //implementation("io.quarkus:quarkus-jdbc-postgresql")
+    //implementation("io.quarkus:quarkus-hibernate-validator")
+    //implementation("io.quarkus:quarkus-smallrye-openapi")
     implementation("io.quarkus:quarkus-kotlin")
     implementation("io.quarkus:quarkus-hibernate-reactive-panache-kotlin")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
