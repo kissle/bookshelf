@@ -7,6 +7,8 @@ import jakarta.ws.rs.POST
 import jakarta.ws.rs.Path
 import jakarta.ws.rs.PathParam
 import secondbrain.kissle.bookshelf.domain.BookShelf
+import secondbrain.kissle.bookshelf.port.`in`.BookCopyDto
+import secondbrain.kissle.bookshelf.port.`in`.BuyBookCopyUseCase
 import secondbrain.kissle.bookshelf.port.`in`.CreateBookShelfUseCase
 import secondbrain.kissle.bookshelf.port.`in`.LoadBookShelfUseCase
 
@@ -18,6 +20,9 @@ class BookShelfResource {
 
     @Inject
     lateinit var createBookShelfUseCase: CreateBookShelfUseCase
+
+    @Inject
+    lateinit var buyBookCopyUseCase: BuyBookCopyUseCase
 
     @GET
     fun findAll(): Uni<List<BookShelf>> {
@@ -33,5 +38,11 @@ class BookShelfResource {
     @POST
     fun create(): Uni<BookShelf> {
         return createBookShelfUseCase.create()
+    }
+
+    @POST
+    @Path("/add_book")
+    fun addBook(copy: BookCopyDto): Uni<BookShelf> {
+        return buyBookCopyUseCase.addBookCopyToDefaultShelf(copy)
     }
 }

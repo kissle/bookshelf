@@ -6,4 +6,5 @@ import secondbrain.kissle.bookshelf.domain.BookShelf
 interface LoadBookShelfPort {
     fun findAll(): Uni<List<BookShelf>>
     fun findById(id: Long): Uni<BookShelf?>
+    fun getDefault(): Uni<BookShelf>
 }
