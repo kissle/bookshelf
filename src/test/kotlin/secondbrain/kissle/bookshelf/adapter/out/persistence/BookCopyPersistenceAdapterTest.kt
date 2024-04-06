@@ -30,9 +30,7 @@ class BookCopyPersistenceAdapterTest {
 
         asserter.execute {
             val bookCopy1 = BookCopy()
-            val book = Book()
-            book.title = "title1"
-            book.subTitle = "subTitle1"
+            val book = Book(1,"title1", "subTitle1")
             bookCopy1.book = book
             bookCopy1.mediumType = MediumType.HARDCOPY
 
@@ -46,16 +44,14 @@ class BookCopyPersistenceAdapterTest {
     fun `assert that a book copy is created`(asserter: UniAsserter) {
         asserter.execute {
             val bookCopy = BookCopy()
-            val book = Book()
-            book.title = "title"
-            book.subTitle = "subTitle"
+            val book = Book(1L,"title", "subTitle")
             bookCopy.book = book
             bookCopy.mediumType = MediumType.HARDCOPY
             Mockito.`when`(repository.persistAndFlush(anyOrNull())).thenReturn(Uni.createFrom().item(bookCopy))
         }
         asserter.assertNotNull() {
             val bookCopy = BookCopy()
-            val book = Book()
+            val book = Book(1L,"title", "subTitle")
             book.title = "title"
             book.subTitle = "subTitle"
             bookCopy.book = book
@@ -73,7 +69,7 @@ class BookCopyPersistenceAdapterTest {
     fun `assert that object with correct Id is found`(asserter: UniAsserter) {
         asserter.execute {
             val bookCopy = BookCopy()
-            val book = Book()
+            val book = Book(1L,"title", "subTitle")
             book.title = "title"
             book.subTitle = "subTitle"
             bookCopy.book = book

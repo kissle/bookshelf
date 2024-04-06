@@ -29,7 +29,7 @@ class BookPersistenceAdapterTest {
         asserter.assertEquals({ adapter.findAll() }, emptyList())
 
         asserter.execute {
-            val book1 = Book()
+            val book1 = BookEntity()
             book1.title = "title1"
             book1.subTitle = "subTitle1"
 
@@ -42,19 +42,19 @@ class BookPersistenceAdapterTest {
     @RunOnVertxContext
     fun `assert that a book is created`(asserter: UniAsserter) {
         asserter.execute {
-            val book = Book()
+            val book = BookEntity()
             book.title = "title"
             book.subTitle = "subTitle"
             Mockito.`when`(repository.persistAndFlush(anyOrNull())).thenReturn(Uni.createFrom().item(book))
         }
         asserter.assertNotNull() {
-            val book = Book()
+            val book = Book(1, "title1", "subTitle1")
             book.title = "title"
             book.subTitle = "subTitle"
             adapter.create(book)
         }
         asserter.assertEquals({
-            adapter.create(Book()).onItem()
+            adapter.create(Book(1, "title1", "subTitle1")).onItem()
             .transformToUni { book -> Uni.createFrom().item(book.title) }
                               }, "title")
     }
@@ -63,7 +63,7 @@ class BookPersistenceAdapterTest {
     @RunOnVertxContext
     fun `assert that object with correct Id is found`(asserter: UniAsserter) {
         asserter.execute {
-            val book = Book()
+            val book = BookEntity()
             book.title = "title"
             book.subTitle = "subTitle"
             Mockito.`when`(repository.findById(anyOrNull())).thenReturn(Uni.createFrom().item(book))
