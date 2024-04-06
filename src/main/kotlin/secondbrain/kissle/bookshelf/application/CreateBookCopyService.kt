@@ -6,10 +6,10 @@ import jakarta.enterprise.context.ApplicationScoped
 import jakarta.inject.Inject
 import secondbrain.kissle.bookshelf.domain.BookCopy
 import secondbrain.kissle.bookshelf.domain.MediumType
-import secondbrain.kissle.bookshelf.port.`in`.BookCopyDto
-import secondbrain.kissle.bookshelf.port.`in`.CreateBookCopyUseCase
-import secondbrain.kissle.bookshelf.port.`in`.LoadBookUseCase
-import secondbrain.kissle.bookshelf.port.out.CreateBookCopyPort
+import secondbrain.kissle.bookshelf.application.port.`in`.BookCopyDto
+import secondbrain.kissle.bookshelf.application.port.`in`.CreateBookCopyUseCase
+import secondbrain.kissle.bookshelf.application.port.`in`.LoadBookUseCase
+import secondbrain.kissle.bookshelf.application.port.out.CreateBookCopyPort
 
 @ApplicationScoped
 class CreateBookCopyService: CreateBookCopyUseCase {

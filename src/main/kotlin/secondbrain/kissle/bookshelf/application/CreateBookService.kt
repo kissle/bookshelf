@@ -5,8 +5,8 @@ import io.smallrye.mutiny.Uni
 import jakarta.enterprise.context.ApplicationScoped
 import jakarta.inject.Inject
 import secondbrain.kissle.bookshelf.domain.Book
-import secondbrain.kissle.bookshelf.port.`in`.CreateBookUseCase
-import secondbrain.kissle.bookshelf.port.out.CreateBookPort
+import secondbrain.kissle.bookshelf.application.port.`in`.CreateBookUseCase
+import secondbrain.kissle.bookshelf.application.port.out.CreateBookPort
 
 @ApplicationScoped
 class CreateBookService: CreateBookUseCase {

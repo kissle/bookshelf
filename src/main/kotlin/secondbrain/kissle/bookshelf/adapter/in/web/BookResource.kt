@@ -7,8 +7,8 @@ import jakarta.ws.rs.POST
 import jakarta.ws.rs.Path
 import jakarta.ws.rs.PathParam
 import secondbrain.kissle.bookshelf.domain.Book
-import secondbrain.kissle.bookshelf.port.`in`.CreateBookUseCase
-import secondbrain.kissle.bookshelf.port.`in`.LoadBookUseCase
+import secondbrain.kissle.bookshelf.application.port.`in`.CreateBookUseCase
+import secondbrain.kissle.bookshelf.application.port.`in`.LoadBookUseCase
 
 @Path("/books")
 class BookResource {

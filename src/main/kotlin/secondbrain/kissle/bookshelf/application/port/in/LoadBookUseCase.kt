@@ -1,9 +1,9 @@
-package secondbrain.kissle.bookshelf.port.out
+package secondbrain.kissle.bookshelf.application.port.`in`
 
 import io.smallrye.mutiny.Uni
 import secondbrain.kissle.bookshelf.domain.Book
 
-interface LoadBookPort {
+interface LoadBookUseCase {
     fun findAll(): Uni<List<Book>>
     fun findById(id: Long): Uni<Book?>
 }

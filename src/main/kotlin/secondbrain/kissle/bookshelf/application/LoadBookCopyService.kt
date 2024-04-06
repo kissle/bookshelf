@@ -5,8 +5,8 @@ import io.smallrye.mutiny.Uni
 import jakarta.enterprise.context.ApplicationScoped
 import jakarta.inject.Inject
 import secondbrain.kissle.bookshelf.domain.BookCopy
-import secondbrain.kissle.bookshelf.port.`in`.LoadBookCopyUseCase
-import secondbrain.kissle.bookshelf.port.out.LoadBookCopyPort
+import secondbrain.kissle.bookshelf.application.port.`in`.LoadBookCopyUseCase
+import secondbrain.kissle.bookshelf.application.port.out.LoadBookCopyPort
 
 @ApplicationScoped
 class LoadBookCopyService: LoadBookCopyUseCase {

@@ -5,8 +5,8 @@ import io.smallrye.mutiny.Uni
 import jakarta.enterprise.context.ApplicationScoped
 import jakarta.inject.Inject
 import secondbrain.kissle.bookshelf.domain.Book
-import secondbrain.kissle.bookshelf.port.`in`.LoadBookUseCase
-import secondbrain.kissle.bookshelf.port.out.LoadBookPort
+import secondbrain.kissle.bookshelf.application.port.`in`.LoadBookUseCase
+import secondbrain.kissle.bookshelf.application.port.out.LoadBookPort
 
 @ApplicationScoped
 class LoadBookService: LoadBookUseCase {
@@ -16,7 +16,7 @@ class LoadBookService: LoadBookUseCase {
 
     @WithSession
     override fun findAll(): Uni<List<Book>> {
-        return loadBookPort.findAll()
+        return Uni.createFrom().item(listOf())
     }
 
     @WithSession
