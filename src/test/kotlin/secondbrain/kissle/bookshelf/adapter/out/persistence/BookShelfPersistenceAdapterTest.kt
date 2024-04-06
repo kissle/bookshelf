@@ -10,7 +10,6 @@ import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import org.mockito.Mockito
 import org.mockito.kotlin.anyOrNull
-import secondbrain.kissle.bookshelf.domain.BookShelf
 
 @QuarkusTest
 class BookShelfPersistenceAdapterTest {
@@ -27,7 +26,7 @@ class BookShelfPersistenceAdapterTest {
         asserter.assertEquals({ bookShelfPersistenceAdapter.findAll() }, emptyList())
 
         asserter.execute {
-            val bookShelf1 = BookShelf()
+            val bookShelf1 = BookShelfEntity()
 
             Mockito.`when`(bookShelfRepository.listAll()).thenReturn(Uni.createFrom().item(listOf(bookShelf1)))
         }
@@ -38,7 +37,7 @@ class BookShelfPersistenceAdapterTest {
     @RunOnVertxContext
     fun `assert that a object with correct id is found`(asserter: UniAsserter) {
         asserter.execute {
-            val bookShelf = BookShelf()
+            val bookShelf = BookShelfEntity()
             bookShelf.id = 1L
             Mockito.`when`(bookShelfRepository.findById(1)).thenReturn(Uni.createFrom().item(bookShelf))
         }
@@ -55,15 +54,15 @@ class BookShelfPersistenceAdapterTest {
     @RunOnVertxContext
     fun `assert that object with correct Id is created`(asserter: UniAsserter) {
         asserter.execute {
-            val bookShelf = BookShelf()
+            val bookShelf = BookShelfEntity()
             bookShelf.id = 1L
             Mockito.`when`(bookShelfRepository.persistAndFlush(anyOrNull())).thenReturn(Uni.createFrom().item(bookShelf))
         }
         asserter.assertNotNull() {
-            bookShelfPersistenceAdapter.create(BookShelf())
+            bookShelfPersistenceAdapter.create()
         }
         asserter.assertEquals({
-            bookShelfPersistenceAdapter.create(BookShelf()).onItem()
+            bookShelfPersistenceAdapter.create().onItem()
                 .transformToUni { bookShelf -> Uni.createFrom().item(bookShelf.id) }
         }, 1L)
     }

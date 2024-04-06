@@ -9,10 +9,10 @@ import secondbrain.kissle.bookshelf.domain.Book
 
 @ApplicationScoped
 class BookPersistenceAdapter(
-    @Inject var bookRepository: BookRepository
+    @Inject private var bookRepository: BookRepository
 ): LoadBookPort, CreateBookPort {
 
-    val mapper = BookMapper()
+    private val mapper = BookMapper()
 
     override fun create(book: Book): Uni<Book> {
         return bookRepository.persistAndFlush(mapper.toEntity(book)).onItem().transformToUni { bookEntity ->
