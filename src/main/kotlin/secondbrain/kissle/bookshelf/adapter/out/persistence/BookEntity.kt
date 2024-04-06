@@ -1,6 +1,7 @@
 package secondbrain.kissle.bookshelf.adapter.out.persistence
 
 import jakarta.persistence.Entity
+import jakarta.persistence.GeneratedValue
 import jakarta.persistence.Id
 
 @Entity
@@ -21,6 +22,7 @@ class BookEntity(
     }
 
     @Id
+    @GeneratedValue
     var id: Long? = null
     lateinit var title: String
     var subTitle: String? = null

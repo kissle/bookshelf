@@ -5,5 +5,5 @@ import secondbrain.kissle.bookshelf.domain.BookCopy
 
 interface LoadBookCopyPort {
     fun findAll(): Uni<List<BookCopy>>
-    fun findById(id: Long): Uni<BookCopy?>
+    fun findById(id: Long): Uni<BookCopy>
 }

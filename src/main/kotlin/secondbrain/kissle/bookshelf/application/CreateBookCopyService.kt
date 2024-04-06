@@ -26,9 +26,7 @@ class CreateBookCopyService: CreateBookCopyUseCase {
             if (book == null) {
                 Uni.createFrom().failure(IllegalArgumentException("Book with id ${bookCopy.bookId} not found"))
             } else {
-                val copy = BookCopy()
-                copy.book = book
-                copy.mediumType = MediumType.valueOf(bookCopy.mediumType)
+                val copy = BookCopy(null, book, MediumType.valueOf(bookCopy.mediumType))
                 createBookCopyPort.create(copy)
             }
         }

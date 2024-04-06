@@ -13,6 +13,8 @@ import secondbrain.kissle.bookshelf.domain.Book
 import secondbrain.kissle.bookshelf.domain.BookCopy
 import secondbrain.kissle.bookshelf.domain.MediumType
 import org.junit.jupiter.api.Assertions.assertEquals
+import org.mockito.kotlin.any
+import secondbrain.kissle.bookshelf.application.port.out.LoadBookPort
 
 @QuarkusTest
 class BookCopyPersistenceAdapterTest {
@@ -23,18 +25,22 @@ class BookCopyPersistenceAdapterTest {
     @InjectMock
     lateinit var repository: BookCopyRepository
 
+    @InjectMock
+    lateinit var loadBookPort: LoadBookPort
+
     @Test
     @RunOnVertxContext
     fun `assert that a list of items is returned`(asserter: UniAsserter) {
         asserter.assertEquals({ adapter.findAll() }, emptyList())
 
         asserter.execute {
-            val bookCopy1 = BookCopy()
+            val bookCopy1 = BookCopyEntity()
             val book = Book(1,"title1", "subTitle1")
-            bookCopy1.book = book
-            bookCopy1.mediumType = MediumType.HARDCOPY
+            bookCopy1.bookId = book.id
+            bookCopy1.type = MediumType.HARDCOPY
 
             Mockito.`when`(repository.listAll()).thenReturn(Uni.createFrom().item(listOf(bookCopy1)))
+            Mockito.`when`(loadBookPort.findById(any())).thenReturn(Uni.createFrom().item(book))
         }
         asserter.assertNotEquals({ adapter.findAll() }, emptyList())
     }
@@ -43,24 +49,21 @@ class BookCopyPersistenceAdapterTest {
     @RunOnVertxContext
     fun `assert that a book copy is created`(asserter: UniAsserter) {
         asserter.execute {
-            val bookCopy = BookCopy()
+            val bookCopy = BookCopyEntity()
             val book = Book(1L,"title", "subTitle")
-            bookCopy.book = book
-            bookCopy.mediumType = MediumType.HARDCOPY
+            bookCopy.bookId = book.id
+            bookCopy.type = MediumType.HARDCOPY
             Mockito.`when`(repository.persistAndFlush(anyOrNull())).thenReturn(Uni.createFrom().item(bookCopy))
+            Mockito.`when`(loadBookPort.findById(any())).thenReturn(Uni.createFrom().item(book))
         }
         asserter.assertNotNull() {
-            val bookCopy = BookCopy()
             val book = Book(1L,"title", "subTitle")
-            book.title = "title"
-            book.subTitle = "subTitle"
-            bookCopy.book = book
-            bookCopy.mediumType = MediumType.HARDCOPY
+            val bookCopy = BookCopy(1L, book, MediumType.HARDCOPY)
             adapter.create(bookCopy)
         }
         asserter.assertEquals({
-            adapter.create(BookCopy()).onItem()
-            .transformToUni { bookCopy -> Uni.createFrom().item(bookCopy.book?.title) }
+            adapter.create(BookCopy(1L, Book(1L, "title", "subTitle"), MediumType.HARDCOPY)).onItem()
+            .transformToUni { bookCopy -> Uni.createFrom().item(bookCopy.book.title) }
                               }, "title")
     }
 
@@ -68,13 +71,12 @@ class BookCopyPersistenceAdapterTest {
     @RunOnVertxContext
     fun `assert that object with correct Id is found`(asserter: UniAsserter) {
         asserter.execute {
-            val bookCopy = BookCopy()
             val book = Book(1L,"title", "subTitle")
-            book.title = "title"
-            book.subTitle = "subTitle"
-            bookCopy.book = book
-            bookCopy.mediumType = MediumType.HARDCOPY
+            val bookCopy = BookCopyEntity()
+            bookCopy.bookId = 1L
+            bookCopy.type = MediumType.HARDCOPY
             Mockito.`when`(repository.findById(anyOrNull())).thenReturn(Uni.createFrom().item(bookCopy))
+            Mockito.`when`(loadBookPort.findById(any())).thenReturn(Uni.createFrom().item(book))
         }
         asserter.assertNotNull { adapter.findById(1) }
         asserter.assertEquals({
@@ -87,7 +89,9 @@ class BookCopyPersistenceAdapterTest {
     @RunOnVertxContext
     fun `assert that NoSuchElementException is thrown if item does not exist`(asserter: UniAsserter) {
         asserter.execute {
+
             Mockito.`when`(repository.findById(anyOrNull())).thenReturn(Uni.createFrom().nullItem())
+            Mockito.`when`(loadBookPort.findById(anyOrNull())).thenReturn(Uni.createFrom().nullItem())
         }
         asserter.assertFailedWith({
             try {

@@ -18,7 +18,7 @@ class LoadBookCopyService: LoadBookCopyUseCase {
         return loadPort.findAll()
     }
     @WithSession
-    override fun findById(id: Long): Uni<BookCopy?> {
+    override fun findById(id: Long): Uni<BookCopy> {
         return loadPort.findById(id)
     }
 }

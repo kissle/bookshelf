@@ -1,6 +1,8 @@
 package secondbrain.kissle.bookshelf.domain
 
-class BookCopy {
-    var book: Book? = null
-    var mediumType: MediumType? = null
+class BookCopy (
+    var id: Long? = null,
+    var book: Book,
+    var mediumType: MediumType
+) {
 }
