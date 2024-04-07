@@ -4,5 +4,5 @@ import io.smallrye.mutiny.Uni
 import secondbrain.kissle.bookshelf.domain.BookShelf
 
 interface BuyBookCopyUseCase {
-    fun addBookCopyToDefaultShelf(bookCopyDto: BookCopyDto): Uni<BookShelf>
+    fun addBookCopyToDefaultShelf(shelfId: Long, bookCopyDto: BookCopyDto): Uni<BookShelf>
 }

@@ -41,8 +41,8 @@ class BookShelfResource {
     }
 
     @POST
-    @Path("/add_book")
-    fun addBook(copy: BookCopyDto): Uni<BookShelf> {
-        return buyBookCopyUseCase.addBookCopyToDefaultShelf(copy)
+    @Path("/{id}/add_book")
+    fun addBook(@PathParam("id") id: Long, copy: BookCopyDto): Uni<BookShelf> {
+        return buyBookCopyUseCase.addBookCopyToDefaultShelf(id, copy)
     }
 }
