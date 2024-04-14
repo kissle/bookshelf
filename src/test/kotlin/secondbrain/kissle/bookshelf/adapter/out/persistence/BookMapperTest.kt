@@ -28,4 +28,16 @@ class BookMapperTest {
         assert(bookEntity.title == "title")
         assert(bookEntity.subTitle == "subtitle")
     }
+
+    @Test
+    fun `should return a Book with id null`() {
+        val book = Book(null, "title", "subtitle")
+        val mapper = BookMapper()
+        val bookEntity = mapper.toEntity(book)
+
+        assert(bookEntity.javaClass == BookEntity::class.java)
+        assert(bookEntity.id == null)
+        assert(bookEntity.title == "title")
+        assert(bookEntity.subTitle == "subtitle")
+    }
 }

@@ -91,4 +91,20 @@ class BookPersistenceAdapterTest {
             }
         }, { t -> assertEquals(NoSuchElementException::class.java, t.javaClass) })
     }
+
+    @Test
+    @RunOnVertxContext
+    fun `should throw NoSuchElementException if book not found`(asserter: UniAsserter) {
+        asserter.execute {
+            Mockito.`when`(repository.findById(anyOrNull())).thenReturn(Uni.createFrom().nullItem())
+        }
+
+        asserter.assertFailedWith({
+            try {
+                return@assertFailedWith adapter.findById(1L)
+            } catch (e: Exception) {
+                return@assertFailedWith Uni.createFrom().failure(e)
+            }
+        }, { t -> assertEquals(NoSuchElementException::class.java, t.javaClass) })
+    }
 }

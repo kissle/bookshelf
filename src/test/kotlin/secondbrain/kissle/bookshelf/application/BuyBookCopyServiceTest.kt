@@ -6,6 +6,7 @@ import io.quarkus.test.vertx.RunOnVertxContext
 import io.quarkus.test.vertx.UniAsserter
 import io.smallrye.mutiny.Uni
 import jakarta.inject.Inject
+import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import org.mockito.Mockito
 import org.mockito.kotlin.anyOrNull
@@ -54,5 +55,43 @@ class BuyBookCopyServiceTest {
             buyBookCopyService.addBookCopyToDefaultShelf(1L, dto)
                 .onItem().transformToUni { shelf -> Uni.createFrom().item(shelf.bookCopies[0].book.title) }
         }, "title")
+    }
+
+    @Test
+    @RunOnVertxContext
+    fun `should throw IllegalArgumentException when book not found`(asserter: UniAsserter) {
+        asserter.execute {
+            Mockito.`when`(loadBookPort.findById(anyOrNull())).thenReturn(Uni.createFrom().nullItem())
+        }
+
+        asserter.assertFailedWith({
+            try {
+                val dto = BookCopyDto(1L, "HARDCOPY")
+                return@assertFailedWith buyBookCopyService.addBookCopyToDefaultShelf(1L, dto)
+            } catch (e: Exception) {
+                return@assertFailedWith Uni.createFrom().failure(e)
+            }
+        }, { t -> assertEquals(IllegalArgumentException::class.java, t.javaClass) })
+    }
+
+    @Test
+    @RunOnVertxContext
+    fun `should throw NotFoundException when shelf not found`(asserter: UniAsserter) {
+        asserter.execute {
+            val book = Book(1L, "title", "subTitle")
+            Mockito.`when`(loadBookPort.findById(anyOrNull())).thenReturn(Uni.createFrom().item(book))
+            Mockito.`when`(loadBookShelfPort.findById(anyOrNull())).thenReturn(Uni.createFrom().nullItem())
+            val bookCopy = BookCopy(1L, book, MediumType.HARDCOPY)
+            Mockito.`when`(createBookCopyPort.create(anyOrNull())).thenReturn(Uni.createFrom().item(bookCopy))
+        }
+
+        asserter.assertFailedWith({
+            try {
+                val dto = BookCopyDto(1L, "HARDCOPY")
+                return@assertFailedWith buyBookCopyService.addBookCopyToDefaultShelf(1L, dto)
+            } catch (e: Exception) {
+                return@assertFailedWith Uni.createFrom().failure(e)
+            }
+        }, { t -> assertEquals(NoSuchElementException::class.java, t.javaClass) })
     }
 }

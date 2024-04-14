@@ -32,7 +32,8 @@ class BookCopyPersistenceAdapter(
     }
 
     override fun findAll(): Uni<List<BookCopy>> {
-        return bookCopyRepository.listAll().onItem().transformToMulti { list -> Multi.createFrom().iterable(list) }.onItem().transformToUniAndMerge { copy ->
+        return bookCopyRepository.listAll().onItem().transformToMulti { list ->
+            Multi.createFrom().iterable(list) }.onItem().transformToUniAndMerge { copy ->
             getBook(copy.bookId ?: 0).onItem().transform { book ->
                 mapper.toDomain(copy.id, book, copy.type)
             }

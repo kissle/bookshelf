@@ -42,9 +42,9 @@ class BuyBookCopyService (
                             shelf.addBook(copy)
                             Uni.createFrom().item(shelf)
                         }
-                    }
+                    }.onItem().ifNull().failWith { NoSuchElementException("Book shelf with id $shelfId could not be found.") }
             }
-        }
+        }.onItem().ifNull().failWith { IllegalArgumentException("Book not found. Could not add copy to shelf.") }
     }
 
     private fun createBookCopy(book: Book, type: MediumType): Uni<BookCopy> {

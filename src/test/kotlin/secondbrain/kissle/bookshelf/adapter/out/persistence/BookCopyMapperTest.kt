@@ -32,4 +32,17 @@ class BookCopyMapperTest {
         assert(bookCopyEntity.bookId == book.id)
         assert(bookCopyEntity.type == MediumType.HARDCOPY)
     }
+
+    @Test
+    fun `should return a BookCopy with id null`() {
+        val book = Book(1L, "title", "subtitle")
+        val bookCopy = BookCopy(null, book, MediumType.HARDCOPY)
+        val mapper = BookCopyMapper()
+        val bookCopyEntity = mapper.toEntity(bookCopy.id, book.id!!, bookCopy.mediumType)
+
+        assert(bookCopyEntity.javaClass == BookCopyEntity::class.java)
+        assert(bookCopyEntity.id == null)
+        assert(bookCopyEntity.bookId == book.id)
+        assert(bookCopyEntity.type == MediumType.HARDCOPY)
+    }
 }
