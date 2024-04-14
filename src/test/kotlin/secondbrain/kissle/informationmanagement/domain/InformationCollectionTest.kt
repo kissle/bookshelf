@@ -8,7 +8,7 @@ class InformationCollectionTest {
 
      @Test
      fun `should add element to collection`() {
-         val collection = InformationCollection("Projects", true)
+         val collection = InformationCollection(null , "Projects", true)
          val note = Note()
 
          collection.addElement(note)
@@ -18,7 +18,7 @@ class InformationCollectionTest {
 
      @Test
      fun `should remove element from collection`() {
-         val collection = InformationCollection("Projects", true)
+         val collection = InformationCollection(1L,"Projects", true)
          val note1 = Note()
          val note2 = Note()
          collection.elements = mutableListOf(note1, note2)
@@ -31,9 +31,9 @@ class InformationCollectionTest {
 
     @Test
     fun `should add collection to collection`() {
-        val collection = InformationCollection("Projects", true)
+        val collection = InformationCollection(1L,"Projects", true)
         val note = Note()
-        val anotherCollection = InformationCollection("Projects", true)
+        val anotherCollection = InformationCollection(1L,"Projects", true)
         anotherCollection.addElement(note)
 
         collection.addElement(anotherCollection)
@@ -43,9 +43,9 @@ class InformationCollectionTest {
 
     @Test
     fun `should remove collection from collection`() {
-        val collection = InformationCollection("Projects", true)
+        val collection = InformationCollection(1L,"Projects", true)
         val note = Note()
-        val anotherCollection = InformationCollection("Projects", true)
+        val anotherCollection = InformationCollection(1L,"Projects", true)
         anotherCollection.addElement(note)
         collection.elements = mutableListOf(anotherCollection)
 
@@ -56,7 +56,7 @@ class InformationCollectionTest {
 
     @Test
     fun `should change name`(){
-        val collection = InformationCollection("Projects", true)
+        val collection = InformationCollection(1L,"Projects", true)
         collection.name = "New Name"
         assertEquals("New Name", collection.name)
     }

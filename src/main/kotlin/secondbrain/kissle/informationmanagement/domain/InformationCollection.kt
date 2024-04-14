@@ -1,6 +1,7 @@
 package secondbrain.kissle.informationmanagement.domain
 
 class InformationCollection(
+    val id: Long?,
     var name: String,
     val isPermanent: Boolean
 ) : Component() {
