@@ -47,7 +47,7 @@ class BookPersistenceAdapterTest {
             book.subTitle = "subTitle"
             Mockito.`when`(repository.persistAndFlush(anyOrNull())).thenReturn(Uni.createFrom().item(book))
         }
-        asserter.assertNotNull() {
+        asserter.assertNotNull {
             val book = Book(1, "title1", "subTitle1")
             book.title = "title"
             book.subTitle = "subTitle"
@@ -68,7 +68,7 @@ class BookPersistenceAdapterTest {
             book.subTitle = "subTitle"
             Mockito.`when`(repository.findById(anyOrNull())).thenReturn(Uni.createFrom().item(book))
         }
-        asserter.assertNotNull() {
+        asserter.assertNotNull {
             adapter.findById(1)
         }
         asserter.assertEquals({

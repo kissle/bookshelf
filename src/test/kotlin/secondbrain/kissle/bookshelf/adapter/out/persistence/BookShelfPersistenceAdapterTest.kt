@@ -41,7 +41,7 @@ class BookShelfPersistenceAdapterTest {
             bookShelf.id = 1L
             Mockito.`when`(bookShelfRepository.findById(1)).thenReturn(Uni.createFrom().item(bookShelf))
         }
-        asserter.assertNotNull() {
+        asserter.assertNotNull {
             bookShelfPersistenceAdapter.findById(1)
         }
         asserter.assertEquals({
@@ -58,7 +58,7 @@ class BookShelfPersistenceAdapterTest {
             bookShelf.id = 1L
             Mockito.`when`(bookShelfRepository.persistAndFlush(anyOrNull())).thenReturn(Uni.createFrom().item(bookShelf))
         }
-        asserter.assertNotNull() {
+        asserter.assertNotNull {
             bookShelfPersistenceAdapter.create()
         }
         asserter.assertEquals({

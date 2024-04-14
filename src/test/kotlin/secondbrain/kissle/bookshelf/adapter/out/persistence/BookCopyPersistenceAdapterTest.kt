@@ -56,7 +56,7 @@ class BookCopyPersistenceAdapterTest {
             Mockito.`when`(repository.persistAndFlush(anyOrNull())).thenReturn(Uni.createFrom().item(bookCopy))
             Mockito.`when`(loadBookPort.findById(any())).thenReturn(Uni.createFrom().item(book))
         }
-        asserter.assertNotNull() {
+        asserter.assertNotNull {
             val book = Book(1L,"title", "subTitle")
             val bookCopy = BookCopy(1L, book, MediumType.HARDCOPY)
             adapter.create(bookCopy)
