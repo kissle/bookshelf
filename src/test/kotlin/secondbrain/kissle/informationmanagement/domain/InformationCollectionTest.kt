@@ -9,7 +9,7 @@ class InformationCollectionTest {
      @Test
      fun `should add element to collection`() {
          val collection = InformationCollection(null , "Projects", true)
-         val note = Note()
+         val note = Note(1L, "content")
 
          collection.addElement(note)
 
@@ -19,8 +19,8 @@ class InformationCollectionTest {
      @Test
      fun `should remove element from collection`() {
          val collection = InformationCollection(1L,"Projects", true)
-         val note1 = Note()
-         val note2 = Note()
+         val note1 = Note(1L, "content")
+         val note2 = Note(2L, "content")
          collection.elements = mutableListOf(note1, note2)
 
          collection.removeElement(note1)
@@ -32,7 +32,7 @@ class InformationCollectionTest {
     @Test
     fun `should add collection to collection`() {
         val collection = InformationCollection(1L,"Projects", true)
-        val note = Note()
+        val note = Note(1L, "content")
         val anotherCollection = InformationCollection(1L,"Projects", true)
         anotherCollection.addElement(note)
 
@@ -44,7 +44,7 @@ class InformationCollectionTest {
     @Test
     fun `should remove collection from collection`() {
         val collection = InformationCollection(1L,"Projects", true)
-        val note = Note()
+        val note = Note(1L, "content")
         val anotherCollection = InformationCollection(1L,"Projects", true)
         anotherCollection.addElement(note)
         collection.elements = mutableListOf(anotherCollection)
