@@ -4,5 +4,4 @@ import io.quarkus.hibernate.reactive.panache.kotlin.PanacheRepository
 import jakarta.enterprise.context.ApplicationScoped
 
 @ApplicationScoped
-class BookShelfRepository: PanacheRepository<BookShelfEntity> {
-}
+class BookShelfRepository: PanacheRepository<BookShelfEntity>

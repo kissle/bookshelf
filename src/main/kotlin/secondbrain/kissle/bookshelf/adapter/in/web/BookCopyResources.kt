@@ -2,17 +2,11 @@ package secondbrain.kissle.bookshelf.adapter.`in`.web
 
 import jakarta.inject.Inject
 import jakarta.ws.rs.GET
-import jakarta.ws.rs.POST
 import jakarta.ws.rs.Path
-import secondbrain.kissle.bookshelf.application.port.`in`.BookCopyDto
-import secondbrain.kissle.bookshelf.application.port.`in`.CreateBookCopyUseCase
 import secondbrain.kissle.bookshelf.application.port.`in`.LoadBookCopyUseCase
 
 @Path("/book-copies")
 class BookCopyResources{
-
-    @Inject
-    private lateinit var createBookCopyUseCase: CreateBookCopyUseCase
 
     @Inject
     private lateinit var loadBookCopyUseCase: LoadBookCopyUseCase
@@ -23,7 +17,4 @@ class BookCopyResources{
     @GET
     @Path("/{id}")
     fun findById(id: Long) = loadBookCopyUseCase.findById(id)
-
-    @POST
-    fun create(bookCopy: BookCopyDto) = createBookCopyUseCase.create(bookCopy)
 }

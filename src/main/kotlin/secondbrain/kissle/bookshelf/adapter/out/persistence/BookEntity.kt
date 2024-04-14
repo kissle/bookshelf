@@ -5,8 +5,7 @@ import jakarta.persistence.GeneratedValue
 import jakarta.persistence.Id
 
 @Entity
-class BookEntity(
-) {
+class BookEntity {
 
     companion object{
          fun withId(id: Long, title: String, subtitle: String?) = BookEntity().apply {

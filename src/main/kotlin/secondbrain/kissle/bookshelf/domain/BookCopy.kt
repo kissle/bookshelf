@@ -4,5 +4,4 @@ class BookCopy (
     var id: Long? = null,
     var book: Book,
     var mediumType: MediumType
-) {
-}
+)
