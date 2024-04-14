@@ -2,6 +2,7 @@ package secondbrain.kissle.bookshelf.adapter.out.persistence
 
 import jakarta.persistence.ElementCollection
 import jakarta.persistence.Entity
+import jakarta.persistence.FetchType
 import jakarta.persistence.GeneratedValue
 import jakarta.persistence.Id
 
@@ -27,6 +28,6 @@ class BookShelfEntity {
     @GeneratedValue
     var id: Long? = null
 
-    @ElementCollection
+    @ElementCollection(fetch = FetchType.EAGER)
     var bookCopyIds: List<Long> = mutableListOf()
 }

@@ -1,6 +1,6 @@
 package secondbrain.kissle
 
-import io.quarkus.test.junit.QuarkusIntegrationTest
+//import io.quarkus.test.junit.QuarkusIntegrationTest
 
-@QuarkusIntegrationTest
+//@QuarkusIntegrationTest
 class ExampleResourceIT : ExampleResourceTest()

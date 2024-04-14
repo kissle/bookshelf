@@ -1,5 +1,6 @@
 package secondbrain.kissle.bookshelf.adapter.`in`.web
 
+import io.quarkus.hibernate.reactive.panache.common.WithTransaction
 import io.smallrye.mutiny.Uni
 import jakarta.inject.Inject
 import jakarta.ws.rs.GET
@@ -36,12 +37,14 @@ class BookShelfResource {
     }
 
     @POST
+    @WithTransaction
     fun create(): Uni<BookShelf> {
         return createBookShelfUseCase.create()
     }
 
     @POST
     @Path("/{id}/add_book")
+    @WithTransaction
     fun addBook(@PathParam("id") id: Long, copy: BookCopyDto): Uni<BookShelf> {
         return buyBookCopyUseCase.addBookCopyToDefaultShelf(id, copy)
     }
