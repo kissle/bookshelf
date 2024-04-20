@@ -24,13 +24,4 @@ class NoteTest {
              note.removeElement(anotherNote)
          }
      }
-
-     @Test
-     fun `should throw exception when getting elements from note`() {
-         val note = Note(1L, "content")
-
-         assertThrows<UnsupportedOperationException> {
-             note.getElements()
-         }
-     }
 }

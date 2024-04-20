@@ -13,16 +13,14 @@ class CreateDefaultInformationCollectionService(
     @Inject
     private var createInformationCollectionPort: CreateInformationCollectionPort
 ): CreateDefaultAndPermanentInformationCollectionsUseCase {
-    override fun createDefault(): Uni<List<InformationCollection>> {
-        val unis = PARAEnum.entries.map {
-            val informationCollection = InformationCollection(
+    override fun createDefault(): Uni<Void> {
+        val collections = PARAEnum.entries.map {
+            InformationCollection(
                 id = null,
                 name = it.label,
                 isPermanent = true
             )
-            createInformationCollectionPort.createInformationCollection(informationCollection)
         }
-        return Uni.join().all(unis).andCollectFailures()
-            .onItem().transformToUni { items -> Uni.createFrom().item(items) }
+        return createInformationCollectionPort.create(collections)
     }
 }

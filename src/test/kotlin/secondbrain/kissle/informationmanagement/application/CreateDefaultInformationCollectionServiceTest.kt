@@ -36,13 +36,7 @@ class CreateDefaultInformationCollectionServiceTest {
         }
         asserter.assertEquals({
             service.createDefault().onItem().transformToUni { informationCollections ->
-                Uni.createFrom().item(informationCollections.size)}
-        }, 5)
-        asserter.assertEquals({
-            service.createDefault().onItem().transformToUni { informationCollections ->
-                Uni.createFrom().item(
-                    informationCollections.map { it.name + " " + it.id }
-                )}
-        }, listOf("Projects 1","Projects 1","Projects 1","Projects 1","Projects 1"))
+                Uni.createFrom().item(informationCollections)}
+        }, null)
     }
 }

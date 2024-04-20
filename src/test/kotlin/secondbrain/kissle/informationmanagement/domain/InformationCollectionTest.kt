@@ -13,7 +13,7 @@ class InformationCollectionTest {
 
          collection.addElement(note)
 
-         assertEquals(listOf(note), collection.getElements())
+         assertEquals(listOf(note), collection.elements)
      }
 
      @Test
@@ -25,8 +25,8 @@ class InformationCollectionTest {
 
          collection.removeElement(note1)
 
-         assertEquals(1, collection.getElements().size)
-         assertEquals(listOf(note2), collection.getElements())
+         assertEquals(1, collection.elements.size)
+         assertEquals(listOf(note2), collection.elements)
      }
 
     @Test
@@ -38,7 +38,7 @@ class InformationCollectionTest {
 
         collection.addElement(anotherCollection)
 
-        assertEquals(listOf(anotherCollection), collection.getElements())
+        assertEquals(listOf(anotherCollection), collection.elements)
     }
 
     @Test
@@ -51,7 +51,7 @@ class InformationCollectionTest {
 
         collection.removeElement(anotherCollection)
 
-        assertTrue(collection.getElements().isEmpty())
+        assertTrue(collection.elements.isEmpty())
     }
 
     @Test

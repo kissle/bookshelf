@@ -1,7 +1,7 @@
 package secondbrain.kissle.informationmanagement.domain
 
 class InformationCollection(
-    val id: Long?,
+    override val id: Long?,
     var name: String,
     val isPermanent: Boolean
 ) : Component() {
@@ -14,7 +14,11 @@ class InformationCollection(
         elements.remove(element)
     }
 
-    override fun getElements(): List<Component> {
-        return elements
+//    override fun getElements(): List<Component> {
+//        return elements
+//    }
+
+    override fun getComponentType(): ComponentTypes {
+        return ComponentTypes.INFORMATION_COLLECTION
     }
 }

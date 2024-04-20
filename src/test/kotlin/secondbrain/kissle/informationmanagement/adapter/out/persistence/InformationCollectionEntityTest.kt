@@ -15,7 +15,7 @@ class InformationCollectionEntityTest {
 
     @Test
     fun `should generate Object with id equals 1L`() {
-        val informationCollectionEntity = InformationCollectionEntity.withId(1L, "title")
+        val informationCollectionEntity = InformationCollectionEntity.withId(1L, "title", emptyList())
         assert(informationCollectionEntity.id == 1L)
         assert(informationCollectionEntity.name == "title")
     }

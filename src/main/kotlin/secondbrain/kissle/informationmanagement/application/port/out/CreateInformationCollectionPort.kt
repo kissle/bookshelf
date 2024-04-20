@@ -6,4 +6,5 @@ import secondbrain.kissle.informationmanagement.domain.InformationCollection
 interface CreateInformationCollectionPort {
 
     fun createInformationCollection(collection: InformationCollection): Uni<InformationCollection>
+    fun create(collections: List<InformationCollection>): Uni<Void>
 }

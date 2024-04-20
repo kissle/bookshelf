@@ -1,6 +1,10 @@
 package secondbrain.kissle.informationmanagement.domain
 
 class Note(
-    val id: Long? = null,
+    override val id: Long? = null,
     val content: String
-): Component()
+): Component() {
+    override fun getComponentType(): ComponentTypes {
+        return ComponentTypes.NOTE
+    }
+}
