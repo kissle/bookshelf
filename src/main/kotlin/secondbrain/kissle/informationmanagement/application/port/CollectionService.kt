@@ -11,10 +11,9 @@ import secondbrain.kissle.informationmanagement.adapter.`in`.web.NoteDtoMapper
 import secondbrain.kissle.informationmanagement.application.port.`in`.AddNewCollectionToCollectionUseCase
 import secondbrain.kissle.informationmanagement.application.port.`in`.AddNewComponentToCollectionUseCase
 import secondbrain.kissle.informationmanagement.application.port.`in`.AddNewNoteToCollectionUseCase
-import secondbrain.kissle.informationmanagement.application.port.out.CreateInformationCollectionPort
-import secondbrain.kissle.informationmanagement.application.port.out.CreateNotePort
-import secondbrain.kissle.informationmanagement.application.port.out.LoadCollectionPort
-import secondbrain.kissle.informationmanagement.application.port.out.UpdateInformationCollectionPort
+import secondbrain.kissle.informationmanagement.application.port.`in`.LoadComponentsOfCollectionUseCase
+import secondbrain.kissle.informationmanagement.application.port.out.*
+import secondbrain.kissle.informationmanagement.domain.Component
 import secondbrain.kissle.informationmanagement.domain.InformationCollection
 import secondbrain.kissle.informationmanagement.domain.Note
 
@@ -27,8 +26,10 @@ class CollectionService(
     @Inject
     private var updateInformationCollectionPort: UpdateInformationCollectionPort,
     @Inject
-    private var createNotePort: CreateNotePort
-): AddNewCollectionToCollectionUseCase, AddNewNoteToCollectionUseCase, AddNewComponentToCollectionUseCase {
+    private var createNotePort: CreateNotePort,
+    @Inject
+    private var loadComponentsOfCollectionPort: LoadComponentsOfCollectionPort
+): AddNewCollectionToCollectionUseCase, AddNewNoteToCollectionUseCase, AddNewComponentToCollectionUseCase, LoadComponentsOfCollectionUseCase {
 
     private val noteDtoMapper = NoteDtoMapper()
     @Inject
@@ -74,5 +75,9 @@ class CollectionService(
 
     private fun updateCollection(collection: InformationCollection): Uni<InformationCollection> {
         return updateInformationCollectionPort.update(collection)
+    }
+
+    override fun loadComponents(id: Long): Uni<List<Component>> {
+        return loadComponentsOfCollectionPort.loadComponents(id)
     }
 }

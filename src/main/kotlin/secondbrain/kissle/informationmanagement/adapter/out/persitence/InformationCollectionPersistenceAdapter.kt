@@ -9,14 +9,14 @@ import secondbrain.kissle.informationmanagement.application.port.out.CreateInfor
 import secondbrain.kissle.informationmanagement.application.port.out.LoadCollectionPort
 import secondbrain.kissle.informationmanagement.application.port.out.UpdateInformationCollectionPort
 import secondbrain.kissle.informationmanagement.domain.InformationCollection
-import secondbrain.kissle.informationmanagement.application.port.`in`.LoadComponentsOfCollectionUseCase
+import secondbrain.kissle.informationmanagement.application.port.out.LoadComponentsOfCollectionPort
 
 @ApplicationScoped
 class InformationCollectionPersistenceAdapter(
     @Inject
     private var collectionRepository: InformationCollectionEntityRepository,
     @Inject
-    private var loadComponentsOfCollectionUseCase: LoadComponentsOfCollectionUseCase
+    private var loadComponentsOfCollectionPort: LoadComponentsOfCollectionPort
 ): CreateInformationCollectionPort,
     LoadCollectionPort,
     UpdateInformationCollectionPort {
@@ -50,7 +50,7 @@ class InformationCollectionPersistenceAdapter(
                 Uni.createFrom().nullItem()
             }
             else {
-                loadComponentsOfCollectionUseCase.loadComponents(id).onItem().transform { elements ->
+                loadComponentsOfCollectionPort.loadComponents(id).onItem().transform { elements ->
                     InformationCollectionMapper.toDomain(entity, elements)
                 }
             }
@@ -70,7 +70,7 @@ class InformationCollectionPersistenceAdapter(
             if (entity == null) {
                 Uni.createFrom().nullItem()
             } else {
-                loadComponentsOfCollectionUseCase.loadComponents(entity.id!!).onItem().transform {
+                loadComponentsOfCollectionPort.loadComponents(entity.id!!).onItem().transform {
                     elements -> InformationCollectionMapper.toDomain(entity, elements)
                 }
             }

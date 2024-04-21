@@ -4,18 +4,17 @@ import io.smallrye.mutiny.Uni
 import jakarta.enterprise.context.ApplicationScoped
 import jakarta.inject.Inject
 import org.hibernate.reactive.mutiny.Mutiny
-import secondbrain.kissle.informationmanagement.adapter.out.persitence.*
-import secondbrain.kissle.informationmanagement.application.port.`in`.LoadComponentsOfCollectionUseCase
+import secondbrain.kissle.informationmanagement.application.port.out.LoadComponentsOfCollectionPort
 import secondbrain.kissle.informationmanagement.domain.Component
 import secondbrain.kissle.informationmanagement.domain.ComponentTypes
 import secondbrain.kissle.informationmanagement.domain.InformationCollection
 import secondbrain.kissle.informationmanagement.domain.Note
 
 @ApplicationScoped
-class LoadComponentsService(
+class LoadComponentsAdapter(
     @Inject private var noteRepository: NoteEntityRepository,
     @Inject private var collectionRepository: InformationCollectionEntityRepository
-    ) : LoadComponentsOfCollectionUseCase {
+    ) : LoadComponentsOfCollectionPort {
 
     @Inject
     private lateinit var sessionFactory: Mutiny.SessionFactory
