@@ -10,7 +10,7 @@ class InformationCollectionMapper {
             if (informationCollection.id == null) {
                 return InformationCollectionEntity.withoutId(informationCollection.name)
             }
-            val elements = informationCollection.elements.map { ComponentMapper().toEntity(it) }
+            val elements = informationCollection.elements.map { ComponentMapper().toEntity(it) }.toMutableList()
             return InformationCollectionEntity.withId(informationCollection.id, informationCollection.name, elements)
         }
 

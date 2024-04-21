@@ -1,7 +1,6 @@
 package secondbrain.kissle.informationmanagement.adapter.out.persitence
 
 import secondbrain.kissle.informationmanagement.domain.Component
-import secondbrain.kissle.informationmanagement.domain.InformationCollection
 
 class ComponentMapper {
 
@@ -13,9 +12,5 @@ class ComponentMapper {
         entity.componentId = component.id!!
         entity.componentType = component.getComponentType()
         return entity
-    }
-
-    fun toDomain(entity: InformationCollectionEntity): Component {
-        return InformationCollection(entity.id, entity.name, false)
     }
 }

@@ -14,10 +14,6 @@ class InformationCollection(
         elements.remove(element)
     }
 
-//    override fun getElements(): List<Component> {
-//        return elements
-//    }
-
     override fun getComponentType(): ComponentTypes {
         return ComponentTypes.INFORMATION_COLLECTION
     }

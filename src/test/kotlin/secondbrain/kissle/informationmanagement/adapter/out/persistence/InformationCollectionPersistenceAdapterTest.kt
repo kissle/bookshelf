@@ -29,7 +29,7 @@ class InformationCollectionPersistenceAdapterTest {
     @RunOnVertxContext
     fun `should create a new information collection`(asserter: UniAsserter) {
         asserter.execute {
-            val collectionEntity = InformationCollectionEntity.withId(1L, "New Collection", emptyList())
+            val collectionEntity = InformationCollectionEntity.withId(1L, "New Collection", mutableListOf())
             Mockito.`when`(repository.persistAndFlush(anyOrNull())).thenReturn(Uni.createFrom().item(collectionEntity))
         }
         asserter.assertNotNull {

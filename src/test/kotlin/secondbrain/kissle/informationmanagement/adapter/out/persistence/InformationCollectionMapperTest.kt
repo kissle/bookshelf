@@ -25,7 +25,7 @@ class InformationCollectionMapperTest {
 
     @Test
     fun `should map InformationCollectionEntity to InformationCollection`() {
-        val informationCollectionEntity = InformationCollectionEntity.withId(1L, "Projects", emptyList())
+        val informationCollectionEntity = InformationCollectionEntity.withId(1L, "Projects", mutableListOf())
         val informationCollection = InformationCollectionMapper.toDomain(informationCollectionEntity, emptyList())
         assert(informationCollection.id == 1L)
         assert(informationCollection.name == "Projects")
