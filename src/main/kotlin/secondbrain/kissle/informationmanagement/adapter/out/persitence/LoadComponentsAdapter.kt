@@ -1,4 +1,4 @@
-package secondbrain.kissle.informationmanagement.application.port
+package secondbrain.kissle.informationmanagement.adapter.out.persitence
 
 import io.smallrye.mutiny.Uni
 import jakarta.enterprise.context.ApplicationScoped
