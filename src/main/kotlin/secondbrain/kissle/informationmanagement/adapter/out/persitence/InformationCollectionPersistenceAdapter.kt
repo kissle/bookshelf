@@ -4,18 +4,19 @@ import io.smallrye.mutiny.Uni
 import jakarta.enterprise.context.ApplicationScoped
 import jakarta.inject.Inject
 import jakarta.persistence.PersistenceException
+import org.hibernate.reactive.mutiny.Mutiny
 import secondbrain.kissle.informationmanagement.application.port.out.CreateInformationCollectionPort
 import secondbrain.kissle.informationmanagement.application.port.out.LoadCollectionPort
 import secondbrain.kissle.informationmanagement.application.port.out.UpdateInformationCollectionPort
-import secondbrain.kissle.informationmanagement.domain.Component
-import secondbrain.kissle.informationmanagement.domain.ComponentTypes
 import secondbrain.kissle.informationmanagement.domain.InformationCollection
 import secondbrain.kissle.informationmanagement.application.port.`in`.LoadComponentsOfCollectionUseCase
 
 @ApplicationScoped
 class InformationCollectionPersistenceAdapter(
     @Inject
-    private var collectionRepository: InformationCollectionRepository,
+    private var collectionRepository: InformationCollectionEntityRepository,
+    @Inject
+    private var loadComponentsOfCollectionUseCase: LoadComponentsOfCollectionUseCase
 ): CreateInformationCollectionPort,
     LoadCollectionPort,
     UpdateInformationCollectionPort {
@@ -74,40 +75,5 @@ class InformationCollectionPersistenceAdapter(
                 }
             }
         }
-    }
-
-    private fun loadElements(elements: List<ComponentEntity>): Uni<MutableList<Component>> {
-        if (elements.isEmpty())
-            return Uni.createFrom().item(mutableListOf())
-
-        val unis: MutableList<Uni<Component>> = mutableListOf()
-
-        elements.forEach {
-            element ->
-            unis.add(loadComponent(element))
-        }
-
-        val builder = Uni.join().builder<Component>()
-
-        unis.forEach { itemUni -> builder.add(itemUni) }
-
-        return builder.joinAll().andFailFast()
-    }
-
-    fun loadComponent(component: ComponentEntity): Uni<Component> {
-        return when (component.componentType) {
-            ComponentTypes.INFORMATION_COLLECTION -> loadInformationCollection(component)
-            ComponentTypes.NOTE -> loadNote(component)
-        }
-    }
-
-    fun loadInformationCollection(component: ComponentEntity): Uni<Component> {
-        log.debug("Loading InformationCollection with id ${component.componentId}")
-        return Uni.createFrom().item(InformationCollection(component.componentId, "", false))
-    }
-
-    fun loadNote(component: ComponentEntity): Uni<Component> {
-        log.debug("Loading Note with id ${component.componentId}")
-        return Uni.createFrom().item(Note(component.componentId, ""))
     }
 }
