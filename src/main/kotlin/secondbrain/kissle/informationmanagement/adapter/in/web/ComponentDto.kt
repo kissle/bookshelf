@@ -8,5 +8,4 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo
     JsonSubTypes.Type(value = NoteDto::class, name = "NoteDto"),
     JsonSubTypes.Type(value = InformationCollectionDto::class, name = "InformationCollectionDto")
 )
-open class ComponentDto {
-}
+open class ComponentDto

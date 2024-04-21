@@ -13,7 +13,7 @@ import org.mockito.Mockito
 import org.mockito.kotlin.anyOrNull
 import secondbrain.kissle.informationmanagement.adapter.out.persitence.InformationCollectionEntity
 import secondbrain.kissle.informationmanagement.adapter.out.persitence.InformationCollectionPersistenceAdapter
-import secondbrain.kissle.informationmanagement.adapter.out.persitence.InformationCollectionRepository
+import secondbrain.kissle.informationmanagement.adapter.out.persitence.InformationCollectionEntityRepository
 import secondbrain.kissle.informationmanagement.domain.InformationCollection
 
 @QuarkusTest
@@ -23,7 +23,7 @@ class InformationCollectionPersistenceAdapterTest {
     lateinit var adapter: InformationCollectionPersistenceAdapter
 
     @InjectMock
-    lateinit var repository: InformationCollectionRepository
+    lateinit var repository: InformationCollectionEntityRepository
 
     @Test
     @RunOnVertxContext

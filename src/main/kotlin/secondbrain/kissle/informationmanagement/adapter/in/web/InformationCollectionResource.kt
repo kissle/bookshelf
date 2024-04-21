@@ -5,22 +5,22 @@ import io.smallrye.mutiny.Uni
 import jakarta.inject.Inject
 import jakarta.ws.rs.*
 import jakarta.ws.rs.core.MediaType
-import secondbrain.kissle.informationmanagement.application.port.`in`.AddNewCollectionToCollectionUseCase
-import secondbrain.kissle.informationmanagement.application.port.`in`.AddNewNoteToCollectionUseCase
+import secondbrain.kissle.informationmanagement.adapter.out.persitence.InformationCollectionPersistenceAdapter
+import secondbrain.kissle.informationmanagement.application.port.`in`.AddNewComponentToCollectionUseCase
 import secondbrain.kissle.informationmanagement.application.port.`in`.CreateDefaultAndPermanentInformationCollectionsUseCase
+import secondbrain.kissle.informationmanagement.application.port.`in`.LoadComponentsOfCollectionUseCase
+import secondbrain.kissle.informationmanagement.domain.Component
 import secondbrain.kissle.informationmanagement.domain.InformationCollection
 
 @Path("/para/")
 class InformationCollectionResource(
     @Inject
     private var createDefaultAndPermanentInformationCollectionsUseCase: CreateDefaultAndPermanentInformationCollectionsUseCase,
-    @Inject
-    private var addNewCollectionToCollectionUseCase: AddNewCollectionToCollectionUseCase,
-    @Inject
-    private var addNewNoteToCollectionUseCase: AddNewNoteToCollectionUseCase
+    @Inject private var loadComponentsOfCollectionUseCase: LoadComponentsOfCollectionUseCase,
+    @Inject private var informationCollectionPersistenceAdapter: InformationCollectionPersistenceAdapter,
+    @Inject private var addNewComponentToCollectionUseCase: AddNewComponentToCollectionUseCase
 ) {
 
-    private val noteDtoMapper = NoteDtoMapper()
 
     @GET
     @Path("/create-default")
@@ -32,12 +32,20 @@ class InformationCollectionResource(
     @POST
     @Path("/{id}")
     @Consumes(MediaType.APPLICATION_JSON)
-    @WithTransaction
-    fun addNewCollection(@PathParam("id") id: Long, component: ComponentDto): Uni<InformationCollection> {
-        return when (component) {
-            is NoteDto -> addNewNoteToCollectionUseCase.addNote(id, noteDtoMapper.toDomain(component))
-            is InformationCollectionDto -> addNewCollectionToCollectionUseCase.addCollection(id, component.name)
-            else -> throw IllegalArgumentException("Unknown component type")
-        }
+    fun addNewComponentToCollection(@PathParam("id") id: Long, component: ComponentDto): Uni<InformationCollection> {
+        return addNewComponentToCollectionUseCase.addComponent(id, component)
+    }
+
+    @GET
+    @Path("/{id}")
+    fun findById(@PathParam("id") id: Long): Uni<InformationCollection> {
+        return informationCollectionPersistenceAdapter.findById(id)
+    }
+
+    @GET
+    @Path("/{id}/elements")
+    @Produces(MediaType.APPLICATION_JSON)
+    fun loadAllComponents(@PathParam("id") id: Long): Uni<List<Component>> {
+        return loadComponentsOfCollectionUseCase.loadComponents(id)
     }
 }

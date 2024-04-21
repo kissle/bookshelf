@@ -10,9 +10,7 @@ import secondbrain.kissle.informationmanagement.application.port.out.UpdateInfor
 import secondbrain.kissle.informationmanagement.domain.Component
 import secondbrain.kissle.informationmanagement.domain.ComponentTypes
 import secondbrain.kissle.informationmanagement.domain.InformationCollection
-import secondbrain.kissle.informationmanagement.domain.Note
-import org.slf4j.LoggerFactory
-import org.slf4j.Logger
+import secondbrain.kissle.informationmanagement.application.port.`in`.LoadComponentsOfCollectionUseCase
 
 @ApplicationScoped
 class InformationCollectionPersistenceAdapter(
@@ -22,7 +20,8 @@ class InformationCollectionPersistenceAdapter(
     LoadCollectionPort,
     UpdateInformationCollectionPort {
 
-    val log: Logger = LoggerFactory.getLogger(InformationCollectionPersistenceAdapter::class.java)
+    @Inject
+    private lateinit var sessionFactory: Mutiny.SessionFactory
 
     override fun createInformationCollection(collection: InformationCollection): Uni<InformationCollection> {
         return collectionRepository.persistAndFlush(InformationCollectionMapper.toEntity(collection))
@@ -43,20 +42,18 @@ class InformationCollectionPersistenceAdapter(
     }
 
     override fun findById(id: Long): Uni<InformationCollection> {
-        return collectionRepository.findById(id).onItem().transformToUni {
+        return sessionFactory.withSession { collectionRepository.findById(id) }
+            .onItem().transformToUni {
             entity ->
             if (entity == null) {
                 Uni.createFrom().nullItem()
             }
             else {
-                loadElements(entity.elements)
-                    .onItem().transformToUni {
-                    elements->
-                    Uni.createFrom().item(InformationCollectionMapper.toDomain(entity, elements))
+                loadComponentsOfCollectionUseCase.loadComponents(id).onItem().transform { elements ->
+                    InformationCollectionMapper.toDomain(entity, elements)
                 }
             }
-        }.onItem().ifNull()
-            .failWith { NoSuchElementException("Collection with id $id could not be found") }
+        }
     }
 
     override fun update(collection: InformationCollection): Uni<InformationCollection> {
@@ -65,26 +62,17 @@ class InformationCollectionPersistenceAdapter(
 
         val newCollectionEntity = InformationCollectionMapper.toEntity(collection)
 
-        return collectionRepository.findById(collection.id).onItem().transformToUni {
-            existingEntity ->
-            existingEntity.name = newCollectionEntity.name
-            existingEntity.elements.clear()
-            existingEntity.elements.addAll(newCollectionEntity.elements)
-            collectionRepository.persistAndFlush(existingEntity)
-                .onItem().transformToUni { newEntity ->
-                    if (newEntity == null) {
-                        Uni.createFrom().nullItem()
-                    }
-                    else {
-                        loadElements(newEntity.elements).onItem().transformToUni {
-                            elements ->
-                            Uni.createFrom().item(InformationCollectionMapper.toDomain(newEntity, elements))
-                        }
-                    }
+        return sessionFactory.withTransaction { session ->
+            session.merge(newCollectionEntity)
+        }.onItem().transformToUni {
+            entity ->
+            if (entity == null) {
+                Uni.createFrom().nullItem()
+            } else {
+                loadComponentsOfCollectionUseCase.loadComponents(entity.id!!).onItem().transform {
+                    elements -> InformationCollectionMapper.toDomain(entity, elements)
                 }
-                .onItem()
-                .ifNull()
-                .failWith { NoSuchElementException("Collection with id ${collection.id} could not be found") }
+            }
         }
     }
 
