@@ -4,23 +4,22 @@ import io.quarkus.hibernate.reactive.panache.common.WithSession
 import io.smallrye.mutiny.Uni
 import jakarta.enterprise.context.ApplicationScoped
 import jakarta.inject.Inject
-import secondbrain.kissle.bookshelf.adapter.out.persistence.BookShelfRepository
 import secondbrain.kissle.bookshelf.domain.BookShelf
-import secondbrain.kissle.bookshelf.port.`in`.LoadBookShelfUseCase
+import secondbrain.kissle.bookshelf.application.port.`in`.LoadBookShelfUseCase
+import secondbrain.kissle.bookshelf.application.port.out.LoadBookShelfPort
 
 @ApplicationScoped
-class LoadBookShelfService: LoadBookShelfUseCase {
-
-    @Inject
-    private lateinit var repository: BookShelfRepository
+class LoadBookShelfService(
+    @Inject var loadPort: LoadBookShelfPort
+): LoadBookShelfUseCase {
 
     @WithSession
     override fun findAll(): Uni<List<BookShelf>> {
-        return repository.findAll()
+        return loadPort.findAll()
     }
 
     @WithSession
     override fun findById(id: Long): Uni<BookShelf?> {
-        return repository.findById(id)
+        return loadPort.findById(id)
     }
 }
