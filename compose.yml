@@ -25,3 +25,16 @@ services:
       QUARKUS_DATASOURCE_REACTIVE_URL: postgresql://bookshelf-db:5432/postgres
       QUARKUS_DATASOURCE_USERNAME: postgres
       QUARKUS_DATASOURCE_PASSWORD: postgres
+
+  neo4j:
+    image: neo4j:latest
+    ports:
+      - "7474:7474"
+      - "7687:7687"
+    environment:
+      - NEO4J_AUTH=neo4j/neo4jBookshelf
+      - NEO4J_dbms_memory_heap_initial__size=512M
+      - NEO4J_dbms_memory_heap_max__size=512M
+      - NEO4J_dbms_memory_pagecache_size=512M
+    volumes:
+      - ./data:/data

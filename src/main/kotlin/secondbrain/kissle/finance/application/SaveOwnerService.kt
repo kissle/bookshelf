@@ -12,7 +12,7 @@ class SaveOwnerService(
     private var saveOwnerPort: SaveOwnerPort
 ): SaveOwnerUseCase {
 
-    override fun save(owner: String): Owner {
-        return (saveOwnerPort.save(Owner(null, owner)))
+    override fun save(owner: Owner): Owner {
+        return saveOwnerPort.save(owner)
     }
 }

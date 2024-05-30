@@ -16,7 +16,8 @@ class SaveAccountAdapter: SaveAccountPort {
     @Inject
     private lateinit var sessionFactory: SessionFactory
 
-    @Inject lateinit var saveOwnerUseCase: SaveOwnerUseCase
+    @Inject
+    private lateinit var saveOwnerUseCase: SaveOwnerUseCase
 
     override fun save(account: Account): Account {
         val session = sessionFactory.openSession()
@@ -39,7 +40,7 @@ class SaveAccountAdapter: SaveAccountPort {
         return if (owner.id != null) {
                 OwnerEntity.create(owner.id, owner.name)
             } else {
-                val savedOwner = saveOwnerUseCase.save(owner.name)
+                val savedOwner = saveOwnerUseCase.save(owner)
                 OwnerEntity.create(savedOwner.id, savedOwner.name)
             }
     }
