@@ -1,0 +1,8 @@
+  appmap {
+    configFile = file("$projectDir/appmap.yml")
+    outputDirectory = file("$buildDir/appmap")
+    skip = false
+    debug = "info"
+    debugFile = file("$buildDir/appmap/agent.log")
+    eventValueSize = 1024
+  }

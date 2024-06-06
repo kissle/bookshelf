@@ -4,7 +4,7 @@ import org.neo4j.ogm.annotation.GeneratedValue
 import org.neo4j.ogm.annotation.Id
 import org.neo4j.ogm.annotation.NodeEntity
 import org.neo4j.ogm.annotation.Relationship
-import java.time.LocalDateTime
+import java.time.LocalDate
 
 @NodeEntity("Transaction")
 class TransactionEntity {
@@ -17,17 +17,17 @@ class TransactionEntity {
     @Relationship("RECEIVED", direction = Relationship.Direction.INCOMING)
     var targetAccount = AccountEntity()
     var amount: Long = 0
-    var dateTime: LocalDateTime = LocalDateTime.now()
+    var date: LocalDate = LocalDate.now()
     var purpose: String = ""
 
     companion object {
-        fun create(id: Long?, sourceAccount: AccountEntity, targetAccount: AccountEntity, value: Long, dateTime: LocalDateTime, purpose: String): TransactionEntity {
+        fun create(id: Long?, sourceAccount: AccountEntity, targetAccount: AccountEntity, value: Long, date: LocalDate, purpose: String): TransactionEntity {
             return TransactionEntity().apply {
                 this.id = id
                 this.sourceAccount = sourceAccount
                 this.targetAccount = targetAccount
                 this.amount = value
-                this.dateTime = dateTime
+                this.date = date
                 this.purpose = purpose
             }
         }

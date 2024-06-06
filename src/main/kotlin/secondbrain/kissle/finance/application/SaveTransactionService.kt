@@ -8,7 +8,7 @@ import secondbrain.kissle.finance.application.port.`in`.web.SaveTransactionUseCa
 import secondbrain.kissle.finance.application.port.`in`.web.request.TransactionRequest
 import secondbrain.kissle.finance.application.port.out.LoadAccountPort
 import secondbrain.kissle.finance.application.port.out.SaveTransactionPort
-import java.time.LocalDateTime
+import java.time.LocalDate
 
 @ApplicationScoped
 class SaveTransactionService(
@@ -27,7 +27,7 @@ class SaveTransactionService(
             sourceAccount,
             targetAccount,
             transaction.amount * 100,
-            transaction.dateTime ?: LocalDateTime.now(),
+            transaction.date ?: LocalDate.now(),
             transaction.purpose
         ))
     }

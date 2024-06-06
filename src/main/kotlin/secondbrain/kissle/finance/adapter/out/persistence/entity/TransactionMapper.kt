@@ -10,7 +10,7 @@ class TransactionMapper {
                 AccountMapper.toEntity(transaction.sourceAccount),
                 AccountMapper.toEntity(transaction.targetAccount),
                 transaction.amount,
-                transaction.dateTime,
+                transaction.date,
                 transaction.purpose
             )
         }
@@ -21,7 +21,7 @@ class TransactionMapper {
                 AccountMapper.toDomain(transactionEntity.sourceAccount),
                 AccountMapper.toDomain(transactionEntity.targetAccount),
                 transactionEntity.amount,
-                transactionEntity.dateTime,
+                transactionEntity.date,
                 transactionEntity.purpose
             )
         }

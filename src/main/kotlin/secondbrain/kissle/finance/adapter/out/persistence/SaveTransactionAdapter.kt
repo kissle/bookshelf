@@ -22,14 +22,14 @@ class SaveTransactionAdapter: SaveTransactionPort {
         val session = sessionFactory.openSession()
         val sourceAccount = getAccountEntity(transaction.sourceAccount)
         val targetAccount = getAccountEntity(transaction.targetAccount)
-        val transactionEntity = TransactionEntity.create(transaction.id, sourceAccount, targetAccount, transaction.amount, transaction.dateTime, transaction.purpose)
+        val transactionEntity = TransactionEntity.create(transaction.id, sourceAccount, targetAccount, transaction.amount, transaction.date, transaction.purpose)
         session.save(transactionEntity)
 
         val retrievedTransactionEntity = session.load(TransactionEntity::class.java, transactionEntity.id)
             ?: throw Exception("Transaction could not be retrieved")
         val retrievedSourceAccount = AccountMapper.toDomain(retrievedTransactionEntity.sourceAccount)
         val retrievedTargetAccount = AccountMapper.toDomain(retrievedTransactionEntity.targetAccount)
-        return Transaction(retrievedTransactionEntity.id, retrievedSourceAccount, retrievedTargetAccount, retrievedTransactionEntity.amount, retrievedTransactionEntity.dateTime, retrievedTransactionEntity.purpose)
+        return Transaction(retrievedTransactionEntity.id, retrievedSourceAccount, retrievedTargetAccount, retrievedTransactionEntity.amount, retrievedTransactionEntity.date, retrievedTransactionEntity.purpose)
     }
 
     private fun getAccountEntity(account: Account): AccountEntity {

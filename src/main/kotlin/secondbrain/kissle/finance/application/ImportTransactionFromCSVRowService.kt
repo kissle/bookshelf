@@ -24,14 +24,13 @@ class ImportTransactionFromCSVRowService(
         val transactionAccount = getOrCreateAccount(transactionRequest.iban, transactionRequest.owner)
         val requesterAccount = getAccount(requesterIBAN)
         val date: LocalDate = LocalDate.parse(transactionRequest.date, DateTimeFormatter.ofPattern("dd.MM.yyyy"))
-        val dateTime = date.atStartOfDay()
         if (transactionRequest.amount >= 0) {
             val transaction = Transaction(
                 null,
                 transactionAccount,
                 requesterAccount,
                 transformAmount(transactionRequest.amount),
-                dateTime,
+                date,
                 transactionRequest.purpose
             )
             saveTransaction(transaction)
@@ -41,7 +40,7 @@ class ImportTransactionFromCSVRowService(
                 requesterAccount,
                 transactionAccount,
                 transformAmount(transactionRequest.amount),
-                dateTime,
+                date,
                 transactionRequest.purpose
             )
             saveTransaction(transaction)

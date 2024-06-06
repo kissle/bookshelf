@@ -35,10 +35,10 @@ class CommandExecutionService(
     }
 
     private fun getPeriodFromTransactions(transactions: List<Transaction>): Period {
-        val sortedTransactions = transactions.sortedBy { it.dateTime }
+        val sortedTransactions = transactions.sortedBy { it.date }
         val totalTransactions = sortedTransactions.size
         val transaction1 = sortedTransactions[totalTransactions - 2]
         val transaction2 = sortedTransactions[totalTransactions - 1]
-        return Period.between(transaction1.dateTime.toLocalDate(), transaction2.dateTime.toLocalDate())
+        return Period.between(transaction1.date, transaction2.date)
     }
 }

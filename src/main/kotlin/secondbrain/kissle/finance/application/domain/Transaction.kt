@@ -1,12 +1,12 @@
 package secondbrain.kissle.finance.application.domain
 
-import java.time.LocalDateTime
+import java.time.LocalDate
 
 class Transaction(
     val id: Long?,
     val sourceAccount: Account,
     val targetAccount: Account,
     val amount: Long,
-    val dateTime: LocalDateTime,
+    val date: LocalDate,
     val purpose: String
 )

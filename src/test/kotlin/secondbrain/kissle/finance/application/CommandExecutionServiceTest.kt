@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test
 import org.mockito.Mockito
 import secondbrain.kissle.finance.application.port.`in`.web.request.CreatePeriodicTransactionFromCompletedTransactionsCommand
 import secondbrain.kissle.finance.application.port.out.LoadTransactionPort
-import java.time.LocalDateTime
+import java.time.LocalDate
 
 @QuarkusTest
 class CommandExecutionServiceTest {
@@ -20,9 +20,9 @@ class CommandExecutionServiceTest {
     @InjectMock
     lateinit var loadTransactionPort: LoadTransactionPort
 
-    val transaction1 = MockFactory.getTransaction(1L, LocalDateTime.now().minusMonths(2L))
-    val transaction2 = MockFactory.getTransaction(2L,  LocalDateTime.now().minusMonths(1L))
-    val transaction3 = MockFactory.getTransaction(3L,  LocalDateTime.now())
+    val transaction1 = MockFactory.getTransaction(1L, LocalDate.now().minusMonths(2L))
+    val transaction2 = MockFactory.getTransaction(2L,  LocalDate.now().minusMonths(1L))
+    val transaction3 = MockFactory.getTransaction(3L,  LocalDate.now())
 
     @Test
     fun `should have completed transactions in chronological order`() {
@@ -34,8 +34,8 @@ class CommandExecutionServiceTest {
         commandExecutionService.execute(transaction1.sourceAccount.iban, command)
 
         assertNotNull(command.result)
-        command.result?.completed?.first()?.dateTime?.let {
-            assertTrue(it.isBefore(command.result!!.completed.last().dateTime))
+        command.result?.completed?.first()?.date?.let {
+            assertTrue(it.isBefore(command.result!!.completed.last().date))
         }
     }
 

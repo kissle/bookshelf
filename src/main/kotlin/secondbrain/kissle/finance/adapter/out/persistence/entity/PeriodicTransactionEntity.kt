@@ -4,7 +4,7 @@ import org.neo4j.ogm.annotation.GeneratedValue
 import org.neo4j.ogm.annotation.Id
 import org.neo4j.ogm.annotation.NodeEntity
 import org.neo4j.ogm.annotation.Relationship
-import java.time.LocalDateTime
+import java.time.LocalDate
 import java.time.Period
 
 @NodeEntity("PeriodicTransaction")
@@ -19,10 +19,10 @@ class PeriodicTransactionEntity {
 
     var period = Period.of(0, 1, 0).toString()
     var currentAmount = 0L
-    var lastTransactionDate: LocalDateTime? = null
+    var lastTransactionDate: LocalDate? = null
 
     companion object {
-        fun create(id: Long?, completed: MutableList<TransactionEntity>, period: Period, currentAmount: Long, lastTransactionDate: LocalDateTime?): PeriodicTransactionEntity {
+        fun create(id: Long?, completed: MutableList<TransactionEntity>, period: Period, currentAmount: Long, lastTransactionDate: LocalDate?): PeriodicTransactionEntity {
             return PeriodicTransactionEntity().apply {
                 this.id = id
                 this.completed = completed

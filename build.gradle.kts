@@ -2,6 +2,7 @@ plugins {
     kotlin("jvm") version "1.9.22"
     kotlin("plugin.allopen") version "1.9.22"
     id("io.quarkus")
+    id("com.appland.appmap") version "1.2.0"
 }
 
 repositories {
