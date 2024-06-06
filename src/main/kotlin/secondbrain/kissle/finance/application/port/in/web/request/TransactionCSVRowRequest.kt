@@ -1,4 +1,4 @@
-package secondbrain.kissle.finance.application.port.`in`.web.requests
+package secondbrain.kissle.finance.application.port.`in`.web.request
 
 data class TransactionCSVRowRequest(
     val owner: String,

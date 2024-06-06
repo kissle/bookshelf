@@ -7,11 +7,11 @@ import jakarta.ws.rs.Path
 import jakarta.ws.rs.PathParam
 import jakarta.ws.rs.Produces
 import jakarta.ws.rs.core.MediaType
-import secondbrain.kissle.finance.application.port.`in`.web.requests.TransactionRequest
+import secondbrain.kissle.finance.application.port.`in`.web.request.TransactionRequest
 import secondbrain.kissle.finance.application.domain.Transaction
 import secondbrain.kissle.finance.application.port.`in`.web.ImportTransactionFromCSVRowUseCase
 import secondbrain.kissle.finance.application.port.`in`.web.SaveTransactionUseCase
-import secondbrain.kissle.finance.application.port.`in`.web.requests.TransactionCSVRowRequest
+import secondbrain.kissle.finance.application.port.`in`.web.request.TransactionCSVRowRequest
 
 @Path("/transaction")
 class SaveTransactionController(

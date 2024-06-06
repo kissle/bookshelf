@@ -5,7 +5,7 @@ import jakarta.inject.Inject
 import secondbrain.kissle.finance.application.domain.Account
 import secondbrain.kissle.finance.application.domain.Transaction
 import secondbrain.kissle.finance.application.port.`in`.web.SaveTransactionUseCase
-import secondbrain.kissle.finance.application.port.`in`.web.requests.TransactionRequest
+import secondbrain.kissle.finance.application.port.`in`.web.request.TransactionRequest
 import secondbrain.kissle.finance.application.port.out.LoadAccountPort
 import secondbrain.kissle.finance.application.port.out.SaveTransactionPort
 import java.time.LocalDateTime

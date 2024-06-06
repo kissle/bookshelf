@@ -7,7 +7,7 @@ import org.neo4j.ogm.annotation.Relationship
 @NodeEntity("Account")
 class AccountEntity {
     @Relationship("OWNES", direction = Relationship.Direction.INCOMING)
-    lateinit var owners: List<OwnerEntity>
+    var owners: List<OwnerEntity> = emptyList()
     @Id
     var iban: String = ""
 
