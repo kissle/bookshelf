@@ -20,6 +20,7 @@ class PeriodicTransactionMapper {
             mapCompletedTransactions(periodicTransactionEntity, periodicTransaction)
             mapPeriod(periodicTransactionEntity, periodicTransaction)
             mapCurrentAmount(periodicTransactionEntity, periodicTransaction)
+            mapLastTransactionDate(periodicTransactionEntity, periodicTransaction)
             return periodicTransaction
         }
 
