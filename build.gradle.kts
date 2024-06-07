@@ -2,7 +2,6 @@ plugins {
     kotlin("jvm") version "1.9.22"
     kotlin("plugin.allopen") version "1.9.22"
     id("io.quarkus")
-    id("com.appland.appmap") version "1.2.0"
 }
 
 repositories {
@@ -37,10 +36,8 @@ dependencies {
     implementation("io.quarkus:quarkus-arc")
 
     // neo4j
-    // https://mvnrepository.com/artifact/io.quarkiverse.neo4j/quarkus-neo4j
-    implementation("io.quarkiverse.neo4j:quarkus-neo4j:3.9.0")
     // https://mvnrepository.com/artifact/org.neo4j/neo4j-ogm-quarkus
-    implementation("org.neo4j:neo4j-ogm-quarkus:3.7.0")
+    implementation("org.neo4j:neo4j-ogm-quarkus:3.8.0")
     testImplementation("org.testcontainers:neo4j:1.19.7")
 
     testImplementation("io.quarkus:quarkus-junit5")
