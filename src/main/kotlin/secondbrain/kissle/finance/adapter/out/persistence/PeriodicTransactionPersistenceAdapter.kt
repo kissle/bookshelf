@@ -11,6 +11,7 @@ import secondbrain.kissle.finance.application.port.out.peristence.LoadPeriodicTr
 @ApplicationScoped
 class PeriodicTransactionPersistenceAdapter: LoadPeriodicTransactionPort {
 
+    @Suppress("CdiInjectionPointsInspection")
     @Inject
     private lateinit var sessionFactory: SessionFactory
 
