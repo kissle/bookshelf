@@ -5,7 +5,7 @@ import jakarta.ws.rs.GET
 import jakarta.ws.rs.Path
 import jakarta.ws.rs.PathParam
 import secondbrain.kissle.finance.application.domain.Account
-import secondbrain.kissle.finance.application.port.out.LoadAccountPort
+import secondbrain.kissle.finance.application.port.out.peristence.LoadAccountPort
 
 @Path("/account")
 class LoadAccountController (

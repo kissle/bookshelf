@@ -4,7 +4,7 @@ import jakarta.enterprise.context.ApplicationScoped
 import jakarta.inject.Inject
 import secondbrain.kissle.finance.application.domain.Owner
 import secondbrain.kissle.finance.application.port.`in`.web.SaveOwnerUseCase
-import secondbrain.kissle.finance.application.port.out.SaveOwnerPort
+import secondbrain.kissle.finance.application.port.out.peristence.SaveOwnerPort
 
 @ApplicationScoped
 class SaveOwnerService(

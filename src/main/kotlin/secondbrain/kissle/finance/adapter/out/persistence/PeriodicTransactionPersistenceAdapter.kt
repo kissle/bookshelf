@@ -6,7 +6,7 @@ import org.neo4j.ogm.session.SessionFactory
 import secondbrain.kissle.finance.adapter.out.persistence.entity.PeriodicTransactionEntity
 import secondbrain.kissle.finance.adapter.out.persistence.entity.PeriodicTransactionMapper
 import secondbrain.kissle.finance.application.domain.PeriodicTransaction
-import secondbrain.kissle.finance.application.port.out.LoadPeriodicTransactionPort
+import secondbrain.kissle.finance.application.port.out.peristence.LoadPeriodicTransactionPort
 
 @ApplicationScoped
 class PeriodicTransactionPersistenceAdapter: LoadPeriodicTransactionPort {

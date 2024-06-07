@@ -4,7 +4,7 @@ import jakarta.enterprise.context.ApplicationScoped
 import jakarta.inject.Inject
 import secondbrain.kissle.finance.application.domain.PeriodicTransaction
 import secondbrain.kissle.finance.application.port.`in`.web.LoadPeriodicTransactionUseCase
-import secondbrain.kissle.finance.application.port.out.LoadPeriodicTransactionPort
+import secondbrain.kissle.finance.application.port.out.peristence.LoadPeriodicTransactionPort
 
 @ApplicationScoped
 class LoadPeriodicTransactionService(

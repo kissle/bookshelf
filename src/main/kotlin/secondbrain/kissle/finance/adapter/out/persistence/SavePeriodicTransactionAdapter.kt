@@ -5,7 +5,7 @@ import jakarta.inject.Inject
 import org.neo4j.ogm.session.SessionFactory
 import secondbrain.kissle.finance.adapter.out.persistence.entity.PeriodicTransactionMapper
 import secondbrain.kissle.finance.application.domain.PeriodicTransaction
-import secondbrain.kissle.finance.application.port.out.SavePeriodicTransactionPort
+import secondbrain.kissle.finance.application.port.out.peristence.SavePeriodicTransactionPort
 
 @ApplicationScoped
 class SavePeriodicTransactionAdapter: SavePeriodicTransactionPort {

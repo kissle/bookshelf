@@ -6,7 +6,7 @@ import org.neo4j.ogm.session.SessionFactory
 import secondbrain.kissle.finance.adapter.out.persistence.entity.OwnerEntity
 import secondbrain.kissle.finance.adapter.out.persistence.entity.OwnerMapper
 import secondbrain.kissle.finance.application.domain.Owner
-import secondbrain.kissle.finance.application.port.out.SaveOwnerPort
+import secondbrain.kissle.finance.application.port.out.peristence.SaveOwnerPort
 
 @ApplicationScoped
 class SaveOwnerAdapter: SaveOwnerPort {

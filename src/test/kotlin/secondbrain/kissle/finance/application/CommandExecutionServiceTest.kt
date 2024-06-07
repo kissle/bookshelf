@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
 import org.mockito.Mockito
 import secondbrain.kissle.finance.application.port.`in`.web.request.CreatePeriodicTransactionFromCompletedTransactionsCommand
-import secondbrain.kissle.finance.application.port.out.LoadTransactionPort
+import secondbrain.kissle.finance.application.port.out.peristence.LoadTransactionPort
 import java.time.LocalDate
 
 @QuarkusTest

@@ -6,8 +6,8 @@ import secondbrain.kissle.finance.application.domain.PeriodicTransaction
 import secondbrain.kissle.finance.application.domain.Transaction
 import secondbrain.kissle.finance.application.port.`in`.web.CreatePeriodicTransactionUseCase
 import secondbrain.kissle.finance.application.port.`in`.web.request.CreatePeriodicTransactionFromCompletedTransactionsCommand
-import secondbrain.kissle.finance.application.port.out.LoadTransactionPort
-import secondbrain.kissle.finance.application.port.out.SavePeriodicTransactionPort
+import secondbrain.kissle.finance.application.port.out.peristence.LoadTransactionPort
+import secondbrain.kissle.finance.application.port.out.peristence.SavePeriodicTransactionPort
 import java.time.Period
 
 @ApplicationScoped

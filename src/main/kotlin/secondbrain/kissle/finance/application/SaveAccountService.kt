@@ -4,7 +4,7 @@ import jakarta.enterprise.context.ApplicationScoped
 import jakarta.inject.Inject
 import secondbrain.kissle.finance.application.domain.Account
 import secondbrain.kissle.finance.application.port.`in`.web.SaveAccountUseCase
-import secondbrain.kissle.finance.application.port.out.SaveAccountPort
+import secondbrain.kissle.finance.application.port.out.peristence.SaveAccountPort
 
 @ApplicationScoped
 class SaveAccountService(

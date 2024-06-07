@@ -4,7 +4,7 @@ import jakarta.enterprise.context.ApplicationScoped
 import jakarta.inject.Inject
 import secondbrain.kissle.finance.application.domain.Account
 import secondbrain.kissle.finance.application.port.`in`.web.LoadAccountUseCase
-import secondbrain.kissle.finance.application.port.out.LoadAccountPort
+import secondbrain.kissle.finance.application.port.out.peristence.LoadAccountPort
 
 @ApplicationScoped
 class LoadAccountService: LoadAccountUseCase {
