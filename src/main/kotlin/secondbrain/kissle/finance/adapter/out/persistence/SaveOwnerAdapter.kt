@@ -3,8 +3,6 @@ package secondbrain.kissle.finance.adapter.out.persistence
 import jakarta.enterprise.context.ApplicationScoped
 import jakarta.inject.Inject
 import org.neo4j.ogm.session.SessionFactory
-import secondbrain.kissle.finance.adapter.out.persistence.entity.OwnerEntity
-import secondbrain.kissle.finance.adapter.out.persistence.entity.OwnerMapper
 import secondbrain.kissle.finance.application.domain.Owner
 import secondbrain.kissle.finance.application.port.out.peristence.SaveOwnerPort
 
@@ -16,11 +14,9 @@ class SaveOwnerAdapter: SaveOwnerPort {
 
     override fun save(owner: Owner): Owner {
         val session = sessionFactory.openSession()
-        val ownerEntity = OwnerMapper.toEntity(owner)
-        session.save(ownerEntity)
+        session.save(owner)
 
-        val retrievedEntity = session.load(OwnerEntity::class.java, ownerEntity.id)
+        return session.load(Owner::class.java, owner.id)
             ?: throw Exception("Owner could not be retrieved")
-        return OwnerMapper.toDomain(retrievedEntity)
     }
 }

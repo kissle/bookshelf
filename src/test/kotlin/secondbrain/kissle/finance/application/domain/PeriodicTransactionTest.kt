@@ -8,8 +8,8 @@ import java.time.Period
 
 class PeriodicTransactionTest {
 
-    private val owner1 = Owner(1, "Owner1")
-    private val owner2 = Owner(2, "Owner2")
+    private val owner1 = Owner.create(1, "Owner1")
+    private val owner2 = Owner.create(2, "Owner2")
     private val account1 = Account("DE1234567890", listOf(owner1))
     private val account2 = Account("DE0987654321", listOf(owner2))
 

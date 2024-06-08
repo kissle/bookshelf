@@ -10,7 +10,7 @@ import secondbrain.kissle.finance.application.SaveOwnerService
 import secondbrain.kissle.finance.application.domain.Owner
 
 @Path("/owner")
-class SaveOwnerController(
+class OwnerController(
     @Inject
     private var saveOwnerService: SaveOwnerService
 ) {

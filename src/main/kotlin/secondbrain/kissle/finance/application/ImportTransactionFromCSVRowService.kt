@@ -65,7 +65,7 @@ class ImportTransactionFromCSVRowService(
         return try {
             loadOwnerPort.findByName(owner)
         } catch (e: Exception) {
-            saveOwnerPort.save(Owner(null, owner))
+            saveOwnerPort.save(Owner.create(null, owner))
         }
     }
 
