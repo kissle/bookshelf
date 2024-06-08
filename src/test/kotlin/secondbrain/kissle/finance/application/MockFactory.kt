@@ -9,7 +9,7 @@ class MockFactory {
     companion object {
         private fun getOwner(id: Long) = Owner.create(id, "Owner$id")
         private fun getAccount(id: Long) = Account.create("DE${id}", listOf(getOwner(id)))
-        fun getTransaction(id: Long, date: LocalDate) = Transaction(
+        fun getTransaction(id: Long, date: LocalDate) = Transaction.create(
             id,
             getAccount(1L),
             getAccount(2L),

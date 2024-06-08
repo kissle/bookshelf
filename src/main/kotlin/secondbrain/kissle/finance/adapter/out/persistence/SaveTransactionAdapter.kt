@@ -3,7 +3,6 @@ package secondbrain.kissle.finance.adapter.out.persistence
 import jakarta.enterprise.context.ApplicationScoped
 import jakarta.inject.Inject
 import org.neo4j.ogm.session.SessionFactory
-import secondbrain.kissle.finance.adapter.out.persistence.entity.*
 import secondbrain.kissle.finance.application.domain.Account
 import secondbrain.kissle.finance.application.domain.Transaction
 import secondbrain.kissle.finance.application.port.out.peristence.LoadAccountPort
@@ -22,15 +21,12 @@ class SaveTransactionAdapter: SaveTransactionPort {
         val session = sessionFactory.openSession()
         val sourceAccount = getAccountEntity(transaction.sourceAccount)
         val targetAccount = getAccountEntity(transaction.targetAccount)
-        val transactionEntity = TransactionEntity.create(transaction.id, sourceAccount, targetAccount, transaction.amount, transaction.date, transaction.purpose)
-        session.save(transactionEntity)
+        val transactionToSave = Transaction.create(transaction.id, sourceAccount, targetAccount, transaction.amount, transaction.date, transaction.purpose)
+        session.save(transactionToSave)
 
-        val retrievedTransactionEntity = session.load(TransactionEntity::class.java, transactionEntity.id)
+        return session.load(Transaction::class.java, transactionToSave.id)
             ?: throw Exception("Transaction could not be retrieved")
-        val retrievedSourceAccount = retrievedTransactionEntity.sourceAccount
-        val retrievedTargetAccount = retrievedTransactionEntity.targetAccount
-        return Transaction(retrievedTransactionEntity.id, retrievedSourceAccount, retrievedTargetAccount, retrievedTransactionEntity.amount, retrievedTransactionEntity.date, retrievedTransactionEntity.purpose)
-    }
+        }
 
     private fun getAccountEntity(account: Account): Account {
         return loadAccountPort.load(account.iban)

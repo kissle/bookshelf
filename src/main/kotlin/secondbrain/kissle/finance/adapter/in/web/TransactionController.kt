@@ -14,7 +14,7 @@ import secondbrain.kissle.finance.application.port.`in`.web.SaveTransactionUseCa
 import secondbrain.kissle.finance.application.port.`in`.web.request.TransactionCSVRowRequest
 
 @Path("/transaction")
-class SaveTransactionController(
+class TransactionController(
     @Inject
     private var saveTransactionUseCase: SaveTransactionUseCase,
     @Inject

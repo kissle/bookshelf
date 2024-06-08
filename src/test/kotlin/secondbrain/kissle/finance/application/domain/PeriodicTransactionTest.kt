@@ -16,8 +16,8 @@ class PeriodicTransactionTest {
 
     @Test
     fun `addCompletedTransactions adds transactions in correct order`() {
-        val transaction1 = Transaction(1L, account1, account2, 100L, LocalDate.now().minusDays(1), "Purpose1")
-        val transaction2 = Transaction(2L, account1, account2, 200L, LocalDate.now(), "Purpose2")
+        val transaction1 = Transaction.create(1L, account1, account2, 100L, LocalDate.now().minusDays(1), "Purpose1")
+        val transaction2 = Transaction.create(2L, account1, account2, 200L, LocalDate.now(), "Purpose2")
         val periodicTransaction = PeriodicTransaction(1L)
 
         periodicTransaction.addCompletedTransactions(listOf(transaction2, transaction1))
@@ -29,7 +29,7 @@ class PeriodicTransactionTest {
 
     @Test
     fun `addCompletedTransactions does not add duplicate transactions`() {
-        val transaction = Transaction(1L, account1, account2, 100L, LocalDate.now(), "Purpose1")
+        val transaction = Transaction.create(1L, account1, account2, 100L, LocalDate.now(), "Purpose1")
         val periodicTransaction = PeriodicTransaction(1L)
 
         periodicTransaction.addCompletedTransactions(listOf(transaction, transaction))
@@ -40,7 +40,7 @@ class PeriodicTransactionTest {
 
     @Test
     fun `getPlannedTransactions returns correct transactions`() {
-        val transaction = Transaction(1L, account1, account2, 100L, LocalDate.now().minusDays(1), "Purpose1")
+        val transaction = Transaction.create(1L, account1, account2, 100L, LocalDate.now().minusDays(1), "Purpose1")
         val periodicTransaction = PeriodicTransaction(1L)
         periodicTransaction.addCompletedTransactions(listOf(transaction))
         periodicTransaction.updatePeriod(Period.ofDays(1))
@@ -55,7 +55,7 @@ class PeriodicTransactionTest {
 
     @Test
     fun `getPlannedTransactions returns only transactions until lastTransactionDate`() {
-        val transaction = Transaction(1L, account1, account2, 100L, LocalDate.now().minusDays(1), "Purpose1")
+        val transaction = Transaction.create(1L, account1, account2, 100L, LocalDate.now().minusDays(1), "Purpose1")
         val periodicTransaction = PeriodicTransaction(1L)
         periodicTransaction.addCompletedTransactions(listOf(transaction))
         periodicTransaction.updatePeriod(Period.ofDays(1))

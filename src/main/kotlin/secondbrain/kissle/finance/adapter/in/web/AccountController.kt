@@ -1,24 +1,29 @@
 package secondbrain.kissle.finance.adapter.`in`.web
 
 import jakarta.inject.Inject
-import jakarta.ws.rs.Consumes
-import jakarta.ws.rs.POST
-import jakarta.ws.rs.Path
-import jakarta.ws.rs.PathParam
-import jakarta.ws.rs.Produces
+import jakarta.ws.rs.*
 import jakarta.ws.rs.core.MediaType
 import secondbrain.kissle.finance.application.SaveAccountService
 import secondbrain.kissle.finance.application.domain.Account
 import secondbrain.kissle.finance.application.port.`in`.web.CreatePeriodicTransactionUseCase
 import secondbrain.kissle.finance.application.port.`in`.web.request.CreatePeriodicTransactionFromCompletedTransactionsCommand
+import secondbrain.kissle.finance.application.port.out.peristence.LoadAccountPort
 
 @Path("/account")
 class AccountController(
     @Inject
     private var saveAccountService: SaveAccountService,
     @Inject
+    private var loadAccountPort: LoadAccountPort,
+    @Inject
     private var createPeriodicTransactionUseCase: CreatePeriodicTransactionUseCase
 ) {
+
+    @GET
+    @Path("/{iban}")
+    fun loadAccount(@PathParam("iban") iban: String): Account {
+        return loadAccountPort.load(iban)
+    }
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)

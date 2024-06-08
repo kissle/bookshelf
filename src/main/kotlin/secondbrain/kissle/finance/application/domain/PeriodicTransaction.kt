@@ -23,7 +23,7 @@ class PeriodicTransaction(
         var nextDate = getLastDateTime().plus(period)
         while (isBeforeOrEqualsUntilDate(nextDate, untilDate) && isBeforeOrEqualLastDate(nextDate)) {
             transactions.add(
-                Transaction(
+                Transaction.create(
                     null,
                     completed.last().sourceAccount,
                     completed.last().targetAccount,

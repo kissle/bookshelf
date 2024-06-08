@@ -22,7 +22,7 @@ class SaveTransactionService(
         val sourceAccount = getAccount(transaction.sourceAccount)
         val targetAccount = getAccount(transaction.targetAccount)
 
-        return saveTransactionPort.save(Transaction(
+        return saveTransactionPort.save(Transaction.create(
             null,
             sourceAccount,
             targetAccount,

@@ -8,7 +8,7 @@ class PeriodicTransactionMapper {
         fun toEntity(periodicTransaction: PeriodicTransaction): PeriodicTransactionEntity {
             return PeriodicTransactionEntity.create(
                 periodicTransaction.id,
-                periodicTransaction.completed.map { TransactionMapper.toEntity(it) }.toMutableList(),
+                periodicTransaction.completed,
                 periodicTransaction.period,
                 periodicTransaction.currentAmount,
                 periodicTransaction.lastTransactionDate
@@ -28,7 +28,7 @@ class PeriodicTransactionMapper {
             periodicTransactionEntity: PeriodicTransactionEntity,
             periodicTransaction: PeriodicTransaction
         ) {
-            val transactions = periodicTransactionEntity.completed.map { TransactionMapper.toDomain(it) }
+            val transactions = periodicTransactionEntity.completed
             periodicTransaction.addCompletedTransactions(transactions)
         }
 
