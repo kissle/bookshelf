@@ -56,7 +56,7 @@ class ImportTransactionFromCSVRowService(
             return getAccount(iban)
         } catch (e: Exception) {
             val owner = getOrCreateOwner(ownerName)
-            val account = Account(iban, listOf(owner))
+            val account = Account.create(iban, listOf(owner))
             return saveAccountPort.save(account)
         }
     }

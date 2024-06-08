@@ -27,12 +27,12 @@ class SaveTransactionAdapter: SaveTransactionPort {
 
         val retrievedTransactionEntity = session.load(TransactionEntity::class.java, transactionEntity.id)
             ?: throw Exception("Transaction could not be retrieved")
-        val retrievedSourceAccount = AccountMapper.toDomain(retrievedTransactionEntity.sourceAccount)
-        val retrievedTargetAccount = AccountMapper.toDomain(retrievedTransactionEntity.targetAccount)
+        val retrievedSourceAccount = retrievedTransactionEntity.sourceAccount
+        val retrievedTargetAccount = retrievedTransactionEntity.targetAccount
         return Transaction(retrievedTransactionEntity.id, retrievedSourceAccount, retrievedTargetAccount, retrievedTransactionEntity.amount, retrievedTransactionEntity.date, retrievedTransactionEntity.purpose)
     }
 
-    private fun getAccountEntity(account: Account): AccountEntity {
-        return AccountMapper.toEntity(loadAccountPort.load(account.iban))
+    private fun getAccountEntity(account: Account): Account {
+        return loadAccountPort.load(account.iban)
     }
 }
